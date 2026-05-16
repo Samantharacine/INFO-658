@@ -3,52 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Half-Life of Aesthetics — Trend Intelligence Report</title>
+<title>After the Spike — Trend Intelligence Report</title>
 <meta name="description" content="Subculture once gave fashion trends their staying power. Does that still hold in the age of the algorithm? Five years of Google Trends data across eight keywords.">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#111;
-  --ink2:#444;
-  --muted:#999;
-  --rule:#e8e6e1;
-  --ecru:#F5F3EE;
-  --bg:#FAFAF8;
-  --surface:#fff;
-  --serif:'Barlow Condensed',sans-serif;
-  --body:'Inter',system-ui,sans-serif;
+  --accent:#D4512A;
+  --ink:#111;--ink2:#444;--muted:#999;
+  --rule:#e8e6e1;--ecru:#F5F3EE;--bg:#FAFAF8;--surface:#fff;
+  --serif:'Barlow Condensed',sans-serif;--body:'Inter',system-ui,sans-serif;
 }
-@media(prefers-color-scheme:dark){
-  :root{
-    --ink:#e8e8e8;
-    --ink2:#aaa;
-    --muted:#666;
-    --rule:#2a2a2a;
-    --ecru:#1a1a18;
-    --bg:#111;
-    --surface:#1a1a1a;
-  }
-}
+@media(prefers-color-scheme:dark){:root{
+  --ink:#e8e8e8;--ink2:#aaa;--muted:#666;
+  --rule:#2a2a2a;--ecru:#1a1a18;--bg:#111;--surface:#1a1a1a;
+}}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.6}
 .page{max-width:700px;margin:0 auto;padding:0 1.5rem 5rem}
 
-/* Nav */
-.nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--rule);padding:10px 0;display:flex;align-items:center;justify-content:space-between}
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--rule)}
+.nav{max-width:700px;margin:0 auto;padding:10px 1.5rem;display:flex;align-items:center;justify-content:space-between}
 .nav-title{font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
 .nav-links{display:flex;gap:1.5rem}
 .nav-links a{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .15s}
 .nav-links a:hover,.nav-links a.active{color:var(--ink)}
 @media(max-width:540px){.nav-links{display:none}}
 
-/* Topbar */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:2px solid var(--ink);margin-bottom:0}
 .tb-name{font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
 .tb-tag{font-size:11px;font-weight:500;padding:3px 10px;background:var(--ink);color:var(--bg);letter-spacing:.06em;text-transform:uppercase}
 
-/* Hero */
 .hero{padding:44px 0 36px;border-bottom:1px solid var(--rule)}
 .pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
 .pill{font-size:11px;font-weight:500;padding:4px 12px;border:1px solid var(--rule);color:var(--muted);letter-spacing:.04em;text-transform:uppercase;border-radius:2px}
@@ -56,9 +41,8 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14p
 .hero-hed{font-family:var(--serif);font-size:clamp(52px,9vw,80px);font-weight:700;line-height:.95;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:16px}
 .hero-hed em{font-style:italic;font-weight:300}
 .hero-dek{font-size:16px;font-weight:300;line-height:1.7;color:var(--ink2);max-width:520px;margin-bottom:20px}
-.byline{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--rule);font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;flex-wrap:wrap;gap:6px}
+.byline{display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid var(--rule);font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;flex-wrap:wrap;gap:6px}
 
-/* Stats */
 .stat-row{display:grid;grid-template-columns:1fr 1px 1fr;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:28px 0}
 .stat-div{background:var(--rule)}
 .stat-cell{text-align:center;padding:0 8px}
@@ -66,102 +50,89 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14p
 .stat-lbl{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
 .stat-sub{font-size:12px;font-weight:300;color:var(--muted);font-style:italic}
 
-/* Typography */
 .prose{font-size:15px;font-weight:300;line-height:1.85;color:var(--ink2);margin-bottom:14px}
 .pull{font-family:var(--serif);font-size:clamp(28px,5.5vw,42px);font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:-.01em;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:14px 0;margin:24px 0}
 .pull em{font-style:italic;font-weight:300}
 
-/* Callouts */
 .insight{border-left:3px solid var(--ink);padding:11px 16px;margin:16px 0;background:var(--ecru)}
 .insight p{font-size:13px;font-weight:300;line-height:1.65;color:var(--ink2)}
 .insight strong{font-weight:600;color:var(--ink)}
+
 .finding{background:var(--ink);color:var(--bg);padding:20px;margin:22px 0}
 .f-lbl{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .f-txt{font-family:var(--serif);font-size:clamp(17px,3vw,24px);font-weight:400;font-style:italic;line-height:1.4}
 
-/* Section markers */
 .sec{display:flex;align-items:center;gap:12px;padding:32px 0 14px}
 .sec-n{font-family:var(--serif);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
 .sec-rule{flex:1;height:1px;background:var(--rule)}
 .sec-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
 
-/* Chart typography */
 .ey{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .hed{font-family:var(--serif);font-size:clamp(24px,4.5vw,38px);font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:4px}
 .hed em{font-style:italic;font-weight:300}
 .cn{font-size:11px;color:var(--muted);letter-spacing:.03em;margin-top:8px;padding-top:6px;border-top:1px solid var(--rule)}
 
-/* KPI grid */
 .kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:14px 0}
 .kpi{padding:12px;background:var(--surface)}
 .kpi-lbl{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .kv{font-family:var(--serif);font-size:27px;font-weight:700;display:block;line-height:1;margin-bottom:3px;color:var(--ink)}
 .kpi-desc{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* Ornament */
 .ornament{text-align:center;padding:28px 0;font-family:var(--serif);font-size:12px;letter-spacing:.3em;color:var(--rule);text-transform:uppercase}
 
-/* Heatmap */
+/* ── HEATMAP (interactive) ── */
 .hm-yr{display:flex;margin-left:108px;margin-bottom:5px}
-.hm-row{display:flex;align-items:center;margin-bottom:3px}
+.hm-row{display:flex;align-items:center;margin-bottom:3px;cursor:pointer;border-radius:2px;transition:opacity .2s}
 .hm-lbl{width:108px;flex-shrink:0;text-align:right;padding-right:8px}
-.hm-nm{font-size:11px;font-weight:500;display:block;line-height:1.2;color:var(--ink)}
-.hm-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:1px}
+.hm-nm{font-size:11px;font-weight:500;display:block;line-height:1.2;color:var(--ink);transition:color .2s}
+.hm-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:1px;transition:color .2s}
 .hm-cells{display:flex;gap:1px;flex:1}
-.hm-cell{flex:1;height:16px;min-width:0;cursor:pointer;transition:outline .05s}
-.hm-cell:hover{outline:1px solid var(--ink);position:relative;z-index:5}
+.hm-cell{flex:1;height:16px;min-width:0;transition:background .2s}
 .hm-sp{height:7px}
+.hm-ann{background:var(--ecru);border-left:3px solid var(--accent);padding:12px 16px;margin:10px 0;display:none;animation:fadeIn .2s ease}
+.hm-ann-nm{font-family:var(--serif);font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:2px;color:var(--accent)}
+.hm-ann-pk{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.hm-ann-nt{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+.hm-ann-st{display:flex;gap:20px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--rule)}
+.hm-ann-sl{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.hm-ann-sv{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
-/* Timeline */
-.frow{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
-.fbtn{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--rule);background:transparent;color:var(--muted);cursor:pointer;transition:all .12s;border-radius:2px;font-family:var(--body)}
-.fbtn:hover{border-color:var(--ink2);color:var(--ink2)}
-.fbtn.on-sub{border-color:var(--ink);background:var(--ink);color:var(--bg)}
-.fbtn.on-mid{border-color:#666;background:#666;color:#fff}
-.fbtn.on-vir{border-color:#bbb;background:#bbb;color:#fff}
-.ann{background:var(--ecru);border-left:3px solid var(--ink);padding:11px 14px;margin-top:8px;display:none}
-.ann-nm{font-family:var(--serif);font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:2px;color:var(--ink)}
-.ann-pk{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.ann-nt{font-size:12px;line-height:1.6;color:var(--ink2)}
-.ann-st{display:flex;gap:18px;margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);flex-wrap:wrap}
-.ann-sl{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.ann-sv{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink)}
+/* ── SLOPE CHART ── */
+.slope-svg{width:100%;overflow:visible}
 
-/* Legend */
+/* ── SPARKLINES ── */
+.spark-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:14px 0}
+.spark-card{background:var(--surface);padding:12px 12px 10px;cursor:pointer;transition:background .15s;position:relative}
+.spark-card:hover{background:var(--ecru)}
+.spark-card.isolated{outline:2px solid var(--accent)}
+.spark-nm{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:1px;line-height:1.2}
+.spark-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block}
+.spark-canvas{width:100%;height:44px;display:block}
+.spark-stats{display:flex;justify-content:space-between;margin-top:6px}
+.spark-stat-lbl{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:1px}
+.spark-stat-val{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--ink)}
+
+/* ── DUMBBELL ── */
+.db-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule);cursor:pointer;transition:background .12s}
+.db-row:last-child{border-bottom:none}
+.db-row:hover{background:var(--ecru)}
+.db-row.isolated .db-nm{color:var(--accent)}
+.db-lbl{width:130px;flex-shrink:0;text-align:right;padding-right:12px}
+.db-nm{font-size:12px;font-weight:500;color:var(--ink);display:block;line-height:1.2;transition:color .2s}
+.db-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:1px}
+.db-track{flex:1;position:relative;height:28px;display:flex;align-items:center}
+.db-svg{width:100%;height:28px;overflow:visible}
+.db-vals{width:56px;flex-shrink:0;text-align:right;padding-left:8px;font-size:10px;color:var(--muted)}
+
 .leg{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0}
 .leg-item{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:500;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .leg-sq{width:8px;height:8px;flex-shrink:0;border-radius:1px}
 .leg-ln{width:18px;flex-shrink:0}
+.leg-hint{font-size:11px;color:var(--muted);font-style:italic}
 
-/* Dot plot */
-.dot-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);position:relative}
-.dot-row:last-child{border-bottom:none}
-.dot-row:hover{background:var(--ecru)}
-.dot-row:hover .dtip{display:block}
-.dot-lbl{width:130px;flex-shrink:0;text-align:right;padding-right:10px}
-.dot-nm{font-size:12px;font-weight:500;color:var(--ink);display:block;line-height:1.2}
-.dot-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:1px}
-.dot-track{flex:1;height:20px;position:relative;display:flex;align-items:center}
-.dot-axis{position:absolute;left:0;right:0;top:50%;height:0.5px;background:var(--rule)}
-.dot-circ{position:absolute;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;border:2px solid;transition:transform .15s}
-.dot-row:hover .dot-circ{transform:translateX(-50%) scale(1.4)}
-.dot-val{width:32px;flex-shrink:0;font-size:10px;font-weight:500;color:var(--muted);padding-left:6px}
-.dtip{display:none;position:absolute;left:132px;top:50%;transform:translateY(-50%);background:var(--ink);color:var(--bg);font-size:10px;padding:4px 9px;z-index:10;white-space:nowrap;pointer-events:none;line-height:1.5;border-radius:2px}
-
-/* Drop bars */
-.drop-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)}
-.drop-row:last-child{border-bottom:none}
-.drop-lbl{width:130px;flex-shrink:0;text-align:right;padding-right:10px}
-.drop-nm{font-size:12px;font-weight:500;color:var(--ink);display:block;line-height:1.2}
-.drop-tp{font-size:9px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:1px}
-.drop-track{flex:1;height:11px;position:relative;background:var(--rule)}
-.drop-fill{position:absolute;left:0;top:0;bottom:0;transition:width .8s ease}
-.drop-val{width:36px;flex-shrink:0;font-size:10px;font-weight:500;color:var(--muted);padding-left:6px}
-
-/* Axis helpers */
 .ax-h{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:4px}
 
-/* Method / refs */
 .mbox{background:var(--ecru);padding:14px 16px;margin:18px 0;border-top:2px solid var(--ink)}
 .mlbl{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .mbody{font-size:12px;font-weight:300;color:var(--muted);line-height:1.65}
@@ -169,567 +140,650 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14p
 .rlbl{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .ri{font-size:11px;color:var(--muted);line-height:1.75;font-style:italic}
 
-/* Tooltip */
 .tooltip{position:fixed;background:var(--ink);color:var(--bg);font-size:10px;padding:6px 10px;pointer-events:none;z-index:1000;display:none;line-height:1.5;border-radius:2px;font-family:var(--body)}
-
-@media(max-width:520px){
-  .stat-row{grid-template-columns:1fr}
-  .stat-div{display:none}
-  .kpi-grid{grid-template-columns:1fr}
-  .hero-hed{font-size:44px}
-}
+@media(max-width:520px){.stat-row{grid-template-columns:1fr}.stat-div{display:none}.kpi-grid{grid-template-columns:1fr}.spark-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 
-<div style="background:var(--bg);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--rule)">
-  <div class="page" style="padding-top:0;padding-bottom:0">
-    <nav class="nav">
-      <div class="nav-title">The Half-Life of Aesthetics</div>
-      <div class="nav-links">
-        <a href="#background">Background</a>
-        <a href="#fig1">Heatmap</a>
-        <a href="#fig2">Timeline</a>
-        <a href="#fig3">Slope</a>
-        <a href="#fig4">Volatility</a>
-        <a href="#fig5">Collapse</a>
-      </div>
-    </nav>
-  </div>
+<div class="sticky-nav">
+  <nav class="nav">
+    <div class="nav-title">After the Spike</div>
+    <div class="nav-links">
+      <a href="#background">Background</a>
+      <a href="#fig1">Heatmap</a>
+      <a href="#fig2">Slope</a>
+      <a href="#fig3">Volatility</a>
+      <a href="#fig4">Collapse</a>
+    </div>
+  </nav>
 </div>
 
 <div class="page">
 
 <div class="topbar">
-  <div class="tb-name">Trend Intelligence</div>
-  <div class="tb-tag">Data Report · 2025</div>
+  <div class="tb-tag" style="background:transparent;color:var(--muted);border:1px solid var(--rule);padding:3px 10px">Trend Intelligence</div>
+  <div class="tb-name">Samantha Racine</div>
 </div>
 
-<!-- HERO -->
 <div class="hero" id="background">
   <div class="pills">
-    <span class="pill on">Fashion</span>
-    <span class="pill on">Subculture</span>
-    <span class="pill on">Algorithms</span>
-    <span class="pill">2021–2026</span>
+    <span class="pill on">Fashion</span><span class="pill on">Subculture</span>
+    <span class="pill on">Algorithms</span><span class="pill">2021–2026</span>
   </div>
-  <h1 class="hero-hed">The Half-Life<br>of <em>Aesthetics</em></h1>
+  <h1 class="hero-hed">After<br>the <em>Spike</em></h1>
   <p class="hero-dek">Subculture once gave fashion trends their staying power. Does that still hold in the age of the algorithm? Five years of search data across eight keywords answers the question — and the findings are more complicated than expected.</p>
   <div class="byline">
-    <span>MS Data Analytics &amp; Visualization · May 2025</span>
+    <span>Samantha Racine · MS Data Analytics &amp; Visualization · INFO-658 Spring 2026</span>
     <span>8 keywords · 261 weeks · Google Trends API</span>
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stat-row">
-  <div class="stat-cell">
-    <span class="stat-lbl">weeks active</span>
-    <span class="stat-num">8</span>
-    <span class="stat-sub">mob wife aesthetic</span>
-  </div>
+  <div class="stat-cell"><span class="stat-lbl">weeks active</span><span class="stat-num">8</span><span class="stat-sub">mob wife aesthetic</span></div>
   <div class="stat-div"></div>
-  <div class="stat-cell">
-    <span class="stat-lbl">weeks active</span>
-    <span class="stat-num" style="color:var(--muted)">600+</span>
-    <span class="stat-sub">athleisure</span>
-  </div>
+  <div class="stat-cell"><span class="stat-lbl">weeks active</span><span class="stat-num" style="color:var(--muted)">600+</span><span class="stat-sub">athleisure</span></div>
 </div>
 
-<!-- BACKGROUND TEXT -->
 <div style="padding:28px 0 0">
-  <p class="prose">The fashion industry has always had a complicated relationship with time. For most of the twentieth century, a trend earned its place in the cultural conversation slowly — through music scenes, street culture, the gradual osmosis of a subculture into the mainstream. Athleisure didn't happen because of a TikTok. It happened because an entire generation reorganized its relationship to the body, to work, and to what it meant to dress well.</p>
-  <p class="prose">That pipeline is now effectively broken. In January 2024, the mob wife aesthetic went from a single TikTok video to international press coverage in under a week. By March, it was over. The creators had moved on, the retailers had just started producing, and the algorithm had already served the next thing. What used to be a two-year runway from street to store had collapsed into an eight-week cycle — and the industry's supply chain had no framework to respond.</p>
+  <p class="prose">Fashion has always moved in cycles — but for most of the twentieth century, those cycles were measured in years, not weeks. A trend earned cultural traction slowly, through music scenes and street communities, through the gradual process of an identity becoming visible. Athleisure didn't emerge from a single viral moment. It grew because a generation changed how it thought about the body, about work, about what dressing well actually meant.</p>
+  <p class="prose">That pipeline is now effectively broken. In January 2024, the mob wife aesthetic went from a single TikTok video to international press coverage in under a week. By March, it was over. The creators had moved on, the retailers had just started producing, and the algorithm had already served the next thing.</p>
+  <p class="prose">No two trends in this dataset are further apart. Athleisure has been growing for over a decade with no sign of slowing. Mob wife peaked in a single week and was functionally over within a month. The gap between them — in lifecycle length, average sustained interest, and speed of collapse — is the research question made visible. They were chosen because both are immediately recognizable, and because the contrast between them is not an edge case. It is the central finding.</p>
 </div>
 
 <div class="pull">Subculture once gave fashion trends their staying power. <em>Does that still hold?</em></div>
 
-<p class="prose">Using five years of weekly Google Trends search data across eight fashion keywords — collected via the Google Trends Python API as part of a graduate data analytics research project — this report attempts to quantify what the industry has long sensed but rarely measured. The findings are clear in some places and surprising in others. As Dick Hebdige argued in <em>Subculture: The Meaning of Style</em> (1979), subcultural fashion is not decoration but communication — and because it was rooted in identity rather than novelty, it had staying power. This project tests whether that claim still holds.</p>
+<p class="prose">Using five years of weekly Google Trends search data across eight fashion keywords — collected via the Google Trends Python API as part of a graduate data analytics research project — this report attempts to quantify what the industry has long sensed but rarely measured. As Dick Hebdige argued in <em>Subculture: The Meaning of Style</em> (1979), subcultural fashion is not decoration but communication — and because it was rooted in identity rather than novelty, it had staying power. This project tests whether that claim still holds.</p>
 
 <div class="ornament">— — —</div>
 
-<!-- FIG 1: HEATMAP -->
+<!-- FIG 1: INTERACTIVE HEATMAP -->
 <div class="sec" id="fig1"><div class="sec-n">01</div><div class="sec-rule"></div><div class="sec-lbl">Heatmap Calendar</div></div>
 <div class="ey">261 weeks × 8 keywords · shaded by search intensity</div>
 <h2 class="hed">261 weeks. <em>Two very different patterns.</em></h2>
-
-<p class="prose" style="margin:10px 0 12px">Each cell in this grid represents one week of search interest for one trend, from May 2021 to May 2026. Darker means more people were searching. What you're looking at is not a chart — it's a fingerprint. Every trend has one, and no two look alike. The subculture-born trends produce a texture that fills the grid. Viral microtrends are a single bright column — then silence.</p>
-
-<div class="insight"><p><strong>For a brand or buyer:</strong> a trend with this heatmap fingerprint is one you should not be building inventory around. By the time the production cycle closes, the algorithm will have moved on.</p></div>
-
+<p class="prose" style="margin:10px 0 12px">Each cell is one week of search interest. Darker = more people searching. Subculture-born trends produce a texture that fills the grid. Viral microtrends are a single bright column — then silence. <strong style="color:var(--ink)">Click any row to isolate it.</strong></p>
+<div class="insight"><p><strong>For a brand or buyer:</strong> a trend that appears as a single bright column — one spike, then silence — is not worth building inventory around. By the time a production cycle closes, the algorithm will have moved on. A trend with consistent warmth across all five years is a different signal entirely: that is structural demand, not a moment.</p></div>
 <div id="hmWrap" style="margin:16px 0"></div>
-
+<div class="hm-ann" id="hmAnn">
+  <div class="hm-ann-nm" id="hmAnnName"></div>
+  <div class="hm-ann-pk" id="hmAnnPeak"></div>
+  <div class="hm-ann-nt" id="hmAnnNote"></div>
+  <div class="hm-ann-st" id="hmAnnStats"></div>
+</div>
 <div class="kpi-grid">
-  <div class="kpi"><div class="kpi-lbl">Athleisure — min value</div><span class="kv">17</span><div class="kpi-desc">Never below 17 across 261 weeks. The floor of a subculture trend exceeds most viral ceilings.</div></div>
-  <div class="kpi"><div class="kpi-lbl">Mob wife — weeks above 50</div><span class="kv" style="color:var(--muted)">4</span><div class="kpi-desc">One bright column surrounded by near-silence on either side.</div></div>
-  <div class="kpi"><div class="kpi-lbl">Tomato girl — weeks above 10</div><span class="kv" style="color:var(--rule)">16</span><div class="kpi-desc">Only 16 weeks above 10 out of 261. Lowest sustained engagement in the dataset.</div></div>
+  <div class="kpi"><div class="kpi-lbl">Athleisure — min value</div><span class="kv">17</span><div class="kpi-desc">Never below 17 across 261 weeks. The floor of a subculture trend.</div></div>
+  <div class="kpi"><div class="kpi-lbl">Mob wife — weeks above 50</div><span class="kv">4</span><div class="kpi-desc">One bright column surrounded by near-silence.</div></div>
+  <div class="kpi"><div class="kpi-lbl">Tomato girl — weeks above 10</div><span class="kv">16</span><div class="kpi-desc">Only 16 weeks above 10 out of 261. Lowest sustained engagement.</div></div>
 </div>
-<div class="cn">Source: Google Trends API via Python, Google Colab 2024–2025 · May 2021 – May 2026 · Hover any cell for exact value and date</div>
+<div class="cn">Google Trends API via Python, Google Colab 2024–2025 · May 2021 – May 2026 · Click any row to isolate · Hover cells for exact value</div>
 
 <div class="ornament">— — —</div>
 
-<!-- FIG 2: TIMELINE -->
-<div class="sec" id="fig2"><div class="sec-n">02</div><div class="sec-rule"></div><div class="sec-lbl">Interactive Timeline</div></div>
-<div class="ey">Weekly search interest · click to isolate any trend</div>
-<h2 class="hed">The curve shape <em>is the argument.</em></h2>
-
-<p class="prose" style="margin:10px 0 12px">A spike tells you something different from a plateau — not just about magnitude, but about the underlying relationship between a trend and its audience. A spike means attention arrived all at once and left all at once. A plateau means the trend became a habit. Click athleisure: watch it climb steadily with no collapse. Click mob wife: zero, then 100, then back to near-zero in eight weeks.</p>
-
-<div class="insight"><p><strong>For merchandising:</strong> any trend whose curve looks like mob wife is a candidate for short-run, low-commitment capsule drop strategy. Any trend whose curve looks like athleisure is a category investment worth structural inventory.</p></div>
-
-<div class="frow" id="filterRow"></div>
-<div style="position:relative;width:100%;height:240px">
-  <canvas id="tlChart" role="img" aria-label="Interactive line chart showing weekly Google Trends search interest for 8 fashion trends from 2021 to 2026. Click any keyword button to isolate its curve against a faded background of all others. Athleisure shows a steady climb. Mob wife shows a sharp spike in January 2024. Tomato girl summer shows a single spike in June 2023.">Athleisure: steady rise 2021–2026. Mob wife: sharp spike January 2024 then rapid decline. Tomato girl summer: single spike June 2023 then near-zero. Coastal grandmother: spike July 2022 then essentially gone.</canvas>
-</div>
-<div class="ann" id="annPanel">
-  <div class="ann-nm" id="annName"></div>
-  <div class="ann-pk" id="annPeak"></div>
-  <div class="ann-nt" id="annNote"></div>
-  <div class="ann-st" id="annStats"></div>
-</div>
-<div class="leg" style="margin-top:10px">
-  <span class="leg-item"><span class="leg-ln" style="border-top:2px solid var(--ink)"></span>subculture</span>
-  <span class="leg-item"><span class="leg-ln" style="border-top:1.5px dashed #888"></span>cultural</span>
-  <span class="leg-item"><span class="leg-ln" style="border-top:1.5px dotted #bbb"></span>viral</span>
-</div>
-<div class="cn">May 2021 – May 2026 · Click any keyword label to isolate its curve and read its annotation</div>
-
-<div class="ornament">— — —</div>
-
-<!-- FIG 3: SLOPE -->
-<div class="sec" id="fig3"><div class="sec-n">03</div><div class="sec-rule"></div><div class="sec-lbl">Slope Chart</div></div>
+<!-- FIG 2: SLOPE CHART -->
+<div class="sec" id="fig2"><div class="sec-n">02</div><div class="sec-rule"></div><div class="sec-lbl">Slope Chart</div></div>
 <div class="ey">Historical average vs. recent six months</div>
 <h2 class="hed">Which trends is the algorithm <em>still serving?</em></h2>
-
-<p class="prose" style="margin:10px 0 12px">Not all trends that peaked are dead. And not all trends that seemed stable are safe. This chart connects each trend's all-time average search interest to its most recent six-month average. A rising line means the trend is growing. A falling line means it's declining. Quiet luxury was declared over by most fashion press in January 2024 — but its recent six-month average is 53.9, higher than at any point in 2022. The obituary was premature. Coastal grandmother has a recent average of 1.4. It is, by any measurable standard, over.</p>
-
-<div class="insight"><p><strong>For trend forecasting:</strong> the slope chart is the most commercially actionable view in this dataset. It tells you not where a trend was, but where it is going — the only question that matters for forward planning.</p></div>
-
-<svg id="slopeSvg" viewBox="0 0 580 310" style="width:100%;overflow:visible" role="img" aria-label="Slope chart comparing all-time average search interest to recent six-month average for 8 fashion trends. Athleisure, slow fashion, quiet luxury, barrel jeans, balletcore, and mob wife show rising lines. Coastal grandmother and tomato girl summer show declining lines."></svg>
-
+<p class="prose" style="margin:10px 0 12px">Not all trends that peaked are dead. Quiet luxury was declared over in January 2024 — but its recent six-month average is 53.9, higher than at any point in 2022. Tomato girl summer, by contrast, has a recent average of 1.1. Outside a single week in June 2023, it barely registered. The algorithm moved on before the summer ended.</p>
+<div class="insight"><p><strong>For trend forecasting:</strong> the slope chart is the most commercially actionable view in this dataset. It tells you not where a trend was, but where it is going.</p></div>
+<p style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:10px">Click any keyword to isolate it in accent color.</p>
+<svg id="slopeSvg" class="slope-svg" viewBox="0 0 580 480" role="img" aria-label="Slope chart comparing all-time average search interest to recent six-month average for 8 fashion trends. Click any keyword to isolate it."></svg>
 <div class="leg">
-  <span class="leg-item"><span class="leg-sq" style="background:var(--ink)"></span>growing</span>
+  <span class="leg-item"><span style="display:inline-block;width:18px;height:2px;background:var(--ink);vertical-align:middle"></span>&nbsp;subculture</span>
+  <span class="leg-item"><span style="display:inline-block;width:18px;height:0;border-top:2px dashed #666;vertical-align:middle"></span>&nbsp;cultural</span>
+  <span class="leg-item"><span style="display:inline-block;width:18px;height:0;border-top:2px dotted var(--muted);vertical-align:middle"></span>&nbsp;viral</span>
+  <span class="leg-item" style="margin-left:8px;padding-left:8px;border-left:1px solid var(--rule)"><span class="leg-sq" style="background:var(--ink)"></span>growing</span>
   <span class="leg-item"><span class="leg-sq" style="background:var(--rule)"></span>declining</span>
 </div>
-<div class="cn">Recent = Nov 2025 – May 2026 average · Historical = May 2021 – May 2026 all-time average · Italic label = viral origin</div>
+<div class="cn">Recent = Nov 2025 – May 2026 · Historical = May 2021 – May 2026 all-time average · Click any line to isolate</div>
 
 <div class="ornament">— — —</div>
 
-<!-- FIG 4: CV DOT PLOT -->
-<div class="sec" id="fig4"><div class="sec-n">04</div><div class="sec-rule"></div><div class="sec-lbl">Volatility Analysis</div></div>
-<div class="ey">Coefficient of variation · std ÷ mean</div>
-<h2 class="hed">How <em>volatile</em> is each trend?</h2>
+<!-- FIG 3: SPARKLINES -->
+<div class="sec" id="fig3"><div class="sec-n">03</div><div class="sec-rule"></div><div class="sec-lbl">Trend Volatility</div></div>
+<div class="ey">Full lifecycle fingerprint · 261 weeks each</div>
+<h2 class="hed">Every trend has a <em>distinct shape.</em></h2>
+<p class="prose" style="margin:10px 0 12px">The most direct way to understand volatility is to see it. Each panel below shows the complete five-year lifecycle of one trend at thumbnail scale. Subculture trends look like slowly rising plateaus. Viral microtrends look like sharp mountains surrounded by flatland. <strong style="color:var(--ink)">Click any card to highlight it.</strong> This view is most useful for trend forecasters pattern-matching lifecycle shapes, buyers deciding between structural inventory and a short capsule run, and brand strategists identifying which trends in a category still have momentum.</p>
+<div class="spark-grid" id="sparkGrid"></div>
+<p style="font-size:12px;color:var(--muted);line-height:1.65;margin-top:10px;font-style:italic">Each card shows the full 261-week search interest curve for one trend. <strong style="color:var(--ink);font-style:normal">Avg</strong> is the all-time average Google Trends score across five years (0–100 scale). Every trend peaked at 100 — the average reveals how much sustained interest it held outside that peak. A high average with a flat curve means the trend is embedded in culture. A low average with a sharp spike means it was a moment.</p>
 
-<p class="prose" style="margin:10px 0 12px">The coefficient of variation measures something the industry has always intuited but never quantified: spikiness. It asks how erratic a trend's search interest is relative to its average. A low CV means consistent, structural engagement. A high CV means one extreme moment surrounded by flatness. Athleisure's CV is 0.35 — the most stable in the dataset. Tomato girl summer's is 4.70 — thirteen times higher. That ratio is a risk metric. A trend with a CV above 2.0 is built almost entirely on one viral moment, with no underlying demand to sustain it once attention moves on.</p>
-
-<div class="mbox"><div class="mlbl">Formula</div><div class="mbody">CV = standard deviation ÷ mean. Higher values = more erratic, spike-driven interest. Lower = consistent, structural engagement. Encoding: position on a common scale — the most accurate perceptual channel for ordered quantitative data (Cleveland &amp; McGill, 1984).</div></div>
-
-<div class="ax-h" style="margin-left:130px;padding-right:38px"><span>stable (low) →</span><span>← volatile (high)</span></div>
-<div id="dotPlot"></div>
-
-<div class="kpi-grid" style="margin-top:14px">
-  <div class="kpi"><div class="kpi-lbl">Athleisure CV</div><span class="kv">0.35</span><div class="kpi-desc">Most stable. Interest is structural, not algorithmic.</div></div>
-  <div class="kpi"><div class="kpi-lbl">Mob wife CV</div><span class="kv" style="color:var(--muted)">1.33</span><div class="kpi-desc">Nearly 4× more volatile than athleisure.</div></div>
-  <div class="kpi"><div class="kpi-lbl">Tomato girl CV</div><span class="kv" style="color:var(--rule)">4.70</span><div class="kpi-desc">13× more volatile than athleisure. Highest in dataset by a wide margin.</div></div>
-</div>
-<div class="cn">CV = standard deviation ÷ mean · 261 weekly observations per keyword · May 2021 – May 2026 · Hover any row for details</div>
+<div class="cn">Google Trends weekly search interest · May 2021 – May 2026 · Click any card to isolate in accent color</div>
 
 <div class="ornament">— — —</div>
 
-<!-- FIG 5: POST-PEAK DROP -->
-<div class="sec" id="fig5"><div class="sec-n">05</div><div class="sec-rule"></div><div class="sec-lbl">Post-Peak Collapse</div></div>
-<div class="ey">Points lost in 10 weeks after peak</div>
-<h2 class="hed">How fast does the algorithm <em>abandon</em> a trend?</h2>
-
-<p class="prose" style="margin:10px 0 12px">After every trend peaked at 100, how far did it fall in the following ten weeks? This measures the speed of algorithmic abandonment. The most analytically surprising finding: balletcore — which received the Miu Miu AW22 runway co-sign that most fashion analysts cited as evidence of its longevity — dropped 95 points in ten weeks, the steepest collapse of any trend in the dataset. The runway moment created width: more weeks above 50, a longer tail of sustained interest. But it did not create resilience. The algorithm abandoned balletcore just as fast as it abandoned mob wife.</p>
-
-<div class="ax-h" style="margin-left:130px;padding-right:40px"><span>0 pts lost</span><span>100 pts lost →</span></div>
-<div id="dropPlot"></div>
-
+<!-- FIG 4: DUMBBELL -->
+<div class="sec" id="fig4"><div class="sec-n">04</div><div class="sec-rule"></div><div class="sec-lbl">Post-Peak Collapse</div></div>
+<div class="ey">Peak value vs. 10-week post-peak average</div>
+<h2 class="hed">Watch the trends <em>fall.</em></h2>
+<p class="prose" style="margin:10px 0 12px">Every trend peaked at 100. The left dot is where each trend was at its peak. The right dot is where it landed ten weeks later. The longer the line, the faster the algorithm abandoned it. Balletcore — which received the Miu Miu AW22 runway co-sign — has the longest line in the dataset. The runway moment extended balletcore's lifespan, giving it more weeks of sustained interest than a typical viral microtrend. But when interest finally dropped, it collapsed just as fast as any pure microtrend — 95 points in 10 weeks. <strong style="color:var(--ink)">Click any row to isolate it.</strong></p>
+<div class="ax-h" style="margin-left:130px;padding-right:60px"><span>peak (100)</span><span>→ post-peak avg</span></div>
+<div id="dbPlot"></div>
 <div class="finding">
   <div class="f-lbl">Key finding</div>
-  <div class="f-txt">Runway validation and algorithmic virality are not interchangeable signals of longevity. A trend needs community depth — not just cultural co-signs — to survive the algorithm's attention cycle. Balletcore proves it: the Miu Miu co-sign created width, not resilience.</div>
+  <div class="f-txt">Balletcore has the highest runway validation of any viral trend in the dataset — and the steepest post-peak collapse at 95 points. Athleisure and slow fashion show the smallest drops, though both are still rising as of May 2026 and have not genuinely peaked within this dataset window. The pattern across viral trends is consistent: runway co-signs can extend a trend's lifespan but do not protect it from algorithmic abandonment.</div>
 </div>
-
-<div class="insight"><p><strong>For trend intelligence work:</strong> the two metrics most worth tracking are CV as a risk flag before a trend peaks, and post-peak drop rate as a diagnostic after. Both are computable from publicly available search data — no proprietary tools required.</p></div>
-
-<div class="leg">
-  <span class="leg-item"><span class="leg-sq" style="background:var(--ink)"></span>subculture</span>
-  <span class="leg-item"><span class="leg-sq" style="background:#888"></span>cultural</span>
-  <span class="leg-item"><span class="leg-sq" style="background:#bbb"></span>viral</span>
-</div>
-<div class="cn">Drop = peak value (100) minus average of next 10 weeks · All trends peaked at 100 (Google Trends normalization) · May 2021 – May 2026</div>
+<div class="insight"><p><strong>For trend intelligence:</strong> post-peak drop rate is a computable diagnostic — available from any public search dataset — that gives a more precise read on algorithmic staying power than press coverage or runway mentions alone.</p></div>
+<div class="leg"><span class="leg-item"><span class="leg-sq" style="background:var(--ink)"></span>subculture</span><span class="leg-item"><span class="leg-sq" style="background:#888"></span>cultural</span><span class="leg-item"><span class="leg-sq" style="background:#bbb"></span>viral</span></div>
+<div class="cn">Left dot = peak (100 for all trends, Google Trends normalization) · Right dot = avg of next 10 weeks · Click any row to isolate</div>
 
 <div class="ornament">— — —</div>
 
 <!-- REFLECTION -->
-<div class="sec"><div class="sec-n">06</div><div class="sec-rule"></div><div class="sec-lbl">Reflection</div></div>
-<h2 class="hed" style="margin-bottom:16px">What this data shows — <em>and what it doesn't.</em></h2>
+<div class="sec"><div class="sec-n">05</div><div class="sec-rule"></div><div class="sec-lbl">Reflection</div></div>
+<h2 class="hed" style="margin-bottom:14px">What this data shows — <em>and what it doesn't.</em></h2>
+<p class="prose">The gap between subculture-born and viral-born fashion trends is real and measurable in this dataset. Athleisure and slow fashion are still growing after five years. Tomato girl summer was relevant for approximately one week. The difference in average sustained interest between these two groups is not close.</p>
+<p class="prose">The more complicated finding is at the edges. Cottagecore and dark academia — both rooted in genuine online subcultures before TikTok reached them — burned out within months of going viral. The algorithm surfaced the aesthetic and stripped the identity from it, compressing a lifecycle that community depth might otherwise have sustained. The line between subculture-born and viral-born trends is not fixed. Trends that begin in communities are increasingly vulnerable to the same acceleration that consumes trends with no community at all.</p>
+<p class="prose"><strong>On the research question:</strong> the data supports the hypothesis, but with an important qualification. Subculture origin still correlates with longer, more stable lifecycles — the evidence across all four charts is consistent. But that advantage is not a guarantee, and it appears to be weakening. The data suggests the algorithm can reach into subcultural aesthetics and accelerate their lifecycle before community depth has time to protect them. The answer to the question — does subculture still give trends their staying power? — is: yes, for now, and less so than it used to.</p>
+<p class="prose"><strong>Honest limits:</strong> eight keywords is not a representative sample. Google Trends measures search behavior, not purchase intent. Decline dates are proxied from press and search drop-off. The dataset is US and English-language dominant. pytrends instability — as an unofficial scraper, pytrends is subject to Google's rate limiting, causing timeouts and inconsistent data pulls across sessions.</p>
+<p class="prose"><strong>Future directions:</strong> expand to 50+ trends with systematic sampling; add celebrity-driven as a third origin type; build a predictive model using early signal shape; integrate Lyst Index commercial data to connect search behavior to purchasing.</p>
 
-<p class="prose">The gap between subculture-born and viral-born fashion trends is real, measurable, and significant in this dataset. Athleisure and slow fashion are still growing after five years of data. Tomato girl summer generated meaningful search interest for approximately one week. That difference is not marginal — it is an order of magnitude.</p>
-
-<p class="prose">But the more interesting finding is the erosion at the edges. Cottagecore and dark academia, both rooted in genuine Tumblr subcultures with years of community development before TikTok discovered them, burned out within months of going viral. The algorithm reached into the subculture and extracted the aesthetic without the identity, accelerating a lifecycle that community depth might otherwise have extended. The distinction between subculture-born and viral-born trends is not a wall — it is a spectrum, and the spectrum is narrowing.</p>
-
-<p class="prose"><strong>Honest limitations:</strong> this is eight keywords, not a representative sample. Google Trends measures search behavior, not purchase intent or actual sales. Decline dates are proxied from press coverage and search drop-off, not from inventory clearance data. The dataset is US and English-language dominant, which means international trend dynamics — particularly from Asian markets, which increasingly drive global fashion cycles — are not captured.</p>
-
-<p class="prose"><strong>Future directions:</strong> expanding to fifty or more trends with systematic sampling; adding celebrity-driven trends as a third origin type, which appear to behave differently from both subculture and viral; building a predictive model that uses early CV and average signals to estimate lifecycle duration before a trend peaks; and integrating commercial data from the Lyst Index or similar sources to connect search behavior to actual purchasing patterns.</p>
-
-<p class="prose">The broader question this project leaves open — and the one most worth pursuing — is whether the erosion of the subculture advantage is accelerating. Is the algorithm getting better at extracting aesthetic from community? Are the trends born in 2026 burning out faster than those born in 2021? Five more years of data will tell a different story.</p>
-
-<!-- METHODOLOGY -->
 <div class="mbox">
   <div class="mlbl">Methodology</div>
-  <div class="mbody">Search interest data collected via Google Trends Python API in Google Colab, graduate Python for Information Professionals course, 2024–2025. Two datasets: google_trends.csv (weekly interest, 8 keywords, 261 weeks, 0–100 relative index) and trend_summary.csv (lifecycle classifications, peak weeks, historical averages). Visualizations built in HTML/CSS/JavaScript using Chart.js 4.4. Keywords classified by origin type: subculture-born (athleisure, slow fashion), cultural/mid (quiet luxury), viral microtrend (balletcore, barrel jeans, coastal grandmother, mob wife, tomato girl summer). Heatmap: luminance encoding on a single greyscale channel — accurate for ordered quantitative data without hue confounds (Ware, Information Visualization, 2004). Slope chart: two-timepoint change, recommended form for before/after comparisons (Tufte, 1983). CV dot plot: position encoding for ranked quantitative data, most accurate perceptual channel (Cleveland &amp; McGill, 1984). Progressive disclosure structure supports cognitive load reduction (Cairo, The Functional Art, 2012).</div>
+  <div class="mbody">Search interest data collected via the Google Trends Python API in Google Colab. One primary dataset: google_trends.csv (weekly search interest, 8 keywords, 261 weeks, May 2021 – May 2026, 0–100 relative index normalized to each keyword's own peak). Lifecycle classifications, peak weeks, and historical averages were derived from this dataset. Visualizations built in HTML/CSS/JavaScript. Heatmap: luminance encoding on a single greyscale channel, accurate for ordered quantitative data without hue confounds (Ware, 2004). Slope chart: two-timepoint change with collision-offset labels and connector lines to preserve data accuracy (Tufte, 1983). Sparkline small multiples: direct lifecycle shape encoding allows visual comparison across all eight trends simultaneously without requiring derived statistics (Cairo, 2013). Dumbbell chart: two-endpoint connected dot plot for before/after comparison, where line length encodes magnitude of change. Accent color #D4512A applied only on interaction to preserve editorial greyscale at rest. Progressive disclosure structure reduces cognitive load across sections (Cairo, 2013). Position encoding used throughout as the most accurate perceptual channel for ordered data (Cleveland &amp; McGill, 1984).</div>
 </div>
 
-<!-- REFERENCES -->
 <div class="refs">
   <div class="rlbl">References</div>
-  <div class="ri">Hebdige, D. (1979). <em>Subculture: The Meaning of Style.</em> Methuen.</div>
-  <div class="ri">Cairo, A. (2012). <em>The Functional Art.</em> New Riders.</div>
-  <div class="ri">Cleveland, W. &amp; McGill, R. (1984). Graphical perception: Theory, experimentation, and application to the development of graphical methods. <em>Journal of the American Statistical Association,</em> 79(387), 531–554.</div>
+  <div class="ri">Hebdige, D. (1979). <em>Subculture: The Meaning of Style</em> (1st ed.). Routledge. <a href="https://doi.org/10.4324/9780203139943" target="_blank" style="color:var(--muted)">https://doi.org/10.4324/9780203139943</a></div>
+  <div class="ri">Cairo, A. (2013). <em>The Functional Art: An Introduction to Information Graphics and Visualization.</em> New Riders.</div>
+  <div class="ri">Cleveland, W. S., &amp; McGill, R. (1984). Graphical perception: Theory, experimentation, and application to the development of graphical methods. <em>Journal of the American Statistical Association, 79</em>(387), 531–554. <a href="https://doi.org/10.2307/2288400" target="_blank" style="color:var(--muted)">https://doi.org/10.2307/2288400</a></div>
   <div class="ri">Tufte, E. (1983). <em>The Visual Display of Quantitative Information.</em> Graphics Press.</div>
   <div class="ri">Ware, C. (2004). <em>Information Visualization: Perception for Design.</em> Morgan Kaufmann.</div>
+  <div class="ri">Murray, S. (2023). Dark academia: Bookishness, readerly self-fashioning and the digital afterlife of Donna Tartt's <em>The Secret History.</em></div>
+  <div class="ri">Lyst. (2025). <em>The Lyst Index Q4 2025.</em> <a href="https://www.lyst.com/the-lyst-index/q4-25/" target="_blank" style="color:var(--muted)">https://www.lyst.com/the-lyst-index/q4-25/</a></div>
+  <div class="ri">Exploding Topics. (n.d.). <em>Keyword research tool.</em> <a href="https://explodingtopics.com/tools/keyword-research" target="_blank" style="color:var(--muted)">https://explodingtopics.com/tools/keyword-research</a></div>
+  <div class="ri">Heuritech. (2025). <em>Fashion trends 2025.</em> <a href="https://heuritech.com/fashion-trends-2025/" target="_blank" style="color:var(--muted)">https://heuritech.com/fashion-trends-2025/</a></div>
+  <div class="ri">The Future Laboratory. (n.d.). <em>Macrotrends.</em> <a href="https://www.thefuturelaboratory.com/sectors/macrotrends" target="_blank" style="color:var(--muted)">https://www.thefuturelaboratory.com/sectors/macrotrends</a></div>
+  <div class="ri">Global Fashion Agenda. (n.d.). Examining the era of micro-trends. <a href="https://globalfashionagenda.org/news-article/examining-the-era-of-micro-trends/" target="_blank" style="color:var(--muted)">https://globalfashionagenda.org/news-article/examining-the-era-of-micro-trends/</a></div>
+  <div class="ri">Highsnobiety. (2024). Mob wife fashion FW24. <a href="https://www.highsnobiety.com/p/mob-wife-fashion-fw24/" target="_blank" style="color:var(--muted)">https://www.highsnobiety.com/p/mob-wife-fashion-fw24/</a></div>
+  <div class="ri">Lily AI. (2024). 2024 trends: Macro vs. micro. <a href="https://www.lily.ai/resources/blog/2024-trends-macro-vs-micro/" target="_blank" style="color:var(--muted)">https://www.lily.ai/resources/blog/2024-trends-macro-vs-micro/</a></div>
+  <div class="ri">Lily AI. (n.d.). Quiet luxury. <a href="https://www.lily.ai/resources/blog/quiet-luxury/" target="_blank" style="color:var(--muted)">https://www.lily.ai/resources/blog/quiet-luxury/</a></div>
+  <div class="ri">The Culture Crypt. (n.d.). The decline of subculture in the 21st century. <a href="https://www.theculturecrypt.com/posts/the-decline-of-subculture-in-the-21st-century" target="_blank" style="color:var(--muted)">https://www.theculturecrypt.com/posts/the-decline-of-subculture-in-the-21st-century</a></div>
+  <div class="ri">Mr. Pop Culture. (n.d.). The rise of cottagecore: Self-reliance and homesteading in pop culture. <a href="https://mrpopculture.com/the-rise-of-cottagecore-self-reliance-and-homesteading-in-pop-culture/" target="_blank" style="color:var(--muted)">https://mrpopculture.com/the-rise-of-cottagecore-self-reliance-and-homesteading-in-pop-culture/</a></div>
+  <div class="ri">The Face. (n.d.). The revival spiral. <a href="https://theface.com/culture/the-revival-spiral-1990s-2000s-noughties-nostalgia-indie-sleaze-y2k-tiktok-fashion-dark-academia-regencycore-the-sopranos-supreme" target="_blank" style="color:var(--muted)">https://theface.com/culture/the-revival-spiral-1990s-2000s-noughties-nostalgia-indie-sleaze-y2k-tiktok-fashion-dark-academia-regencycore-the-sopranos-supreme</a></div>
 </div>
 
 </div><!-- /page -->
-
 <div class="tooltip" id="tip"></div>
 
 <script>
-const isDark = matchMedia('(prefers-color-scheme:dark)').matches;
-const INK  = isDark ? '#e8e8e8' : '#111';
-const MUT  = isDark ? '#555'    : '#bbb';
-const ECRU = isDark ? '#1a1a18' : '#F5F3EE';
-const RULE = isDark ? '#2a2a2a' : '#e8e6e1';
+const ACCENT='#D4512A';
+const isDark=matchMedia('(prefers-color-scheme:dark)').matches;
+const INK=isDark?'#e8e8e8':'#111';
+const MUT=isDark?'#555':'#bbb';
+const ECRU=isDark?'#1a1a18':'#F5F3EE';
+const RULE=isDark?'#2a2a2a':'#e8e6e1';
 
-// ── DATA ───────────────────────────────────────────────────────────
-const ATH=[23,28,22,23,17,23,18,20,19,19,22,22,23,22,22,23,25,26,21,26,27,26,25,37,28,25,26,24,29,33,30,28,21,26,32,29,24,29,37,28,29,28,28,33,29,27,30,27,27,28,30,24,30,29,26,24,24,26,26,25,24,25,27,26,27,30,27,28,27,24,26,28,28,29,28,27,23,25,24,26,30,31,30,29,24,25,27,27,30,30,30,42,29,33,30,31,28,26,28,26,27,28,28,27,26,28,24,26,24,30,22,24,25,26,26,25,26,26,26,25,26,31,26,28,28,27,30,26,25,28,27,30,38,33,31,31,26,27,29,37,31,33,34,30,32,32,31,29,32,32,29,30,33,34,34,31,31,30,30,31,36,30,31,30,30,31,30,33,29,37,36,32,37,30,30,33,29,29,28,33,33,30,30,33,35,43,44,39,56,29,33,32,31,30,34,35,32,35,34,34,38,41,35,37,35,35,31,36,39,34,34,32,35,37,42,38,43,46,40,46,48,50,49,55,49,55,46,56,63,51,41,41,41,42,45,46,44,55,52,51,43,36,50,41,41,42,41,45,57,59,57,60,56,55,59,77,98,100,83,64,63];
-const SF=[13,9,8,10,9,9,8,10,7,12,8,9,11,0,8,10,9,10,10,12,9,11,8,8,10,12,10,13,9,12,16,8,8,10,13,12,9,12,10,14,13,15,12,11,12,8,14,15,14,13,16,14,11,12,13,17,12,11,14,9,13,12,12,15,7,13,13,13,13,11,11,14,14,13,12,14,13,12,11,11,14,12,13,13,10,12,8,13,12,10,15,15,12,12,14,16,12,15,12,11,15,13,16,14,13,16,11,10,9,9,13,9,8,9,8,8,11,9,15,8,8,8,14,11,13,13,11,16,17,13,15,12,11,16,12,15,10,7,12,11,16,12,13,17,13,11,8,12,14,14,14,15,14,16,14,16,13,7,14,14,13,16,11,15,14,12,11,12,13,14,11,9,12,10,14,12,11,10,17,14,13,12,13,12,12,16,16,15,13,11,16,15,14,15,14,13,13,16,18,16,15,16,19,16,12,13,13,11,13,15,13,12,12,18,15,20,11,19,17,26,31,18,14,12,13,15,12,13,21,20,21,19,17,21,24,29,30,34,31,35,36,29,33,33,41,40,39,55,71,74,70,49,40,46,48,68,96,100,69,26,30];
-const QL=[0,0,5,6,2,3,3,3,3,3,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,3,0,3,0,0,0,3,3,2,2,3,0,3,0,3,2,3,2,3,2,5,3,3,3,3,3,2,2,3,0,3,6,3,0,3,0,0,4,0,0,0,0,0,3,3,3,3,3,0,3,3,3,4,4,5,2,3,2,5,3,4,0,4,4,5,17,15,21,25,26,20,31,29,25,38,26,44,33,27,22,20,20,23,27,21,24,21,24,23,19,20,17,24,16,21,20,18,18,18,20,19,23,21,24,28,29,25,27,27,28,24,23,23,24,24,20,22,22,23,27,22,18,22,16,17,18,16,20,18,14,19,21,19,19,19,20,18,17,19,18,21,23,20,18,19,18,15,23,17,14,19,24,20,22,23,20,24,26,22,24,20,22,18,20,18,21,20,18,17,19,18,18,21,16,18,22,16,18,19,21,22,16,25,21,20,24,26,29,22,25,21,22,21,19,23,27,27,32,21,23,27,33,35,33,41,41,39,44,46,56,45,44,50,44,50,48,50,55,65,65,65,66,87,94,100,82,36,42];
-const BC=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,27,0,0,0,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,27,0,0,0,27,32,29,34,38,0,0,0,67,81,90,66,81,54,89,86,85,60,56,45,56,41,52,44,41,29,43,35,28,33,81,39,0,33,47,54,57,47,64,41,54,48,37,34,53,47,47,34,53,61,48,62,68,50,44,55,49,57,52,59,53,47,43,54,36,42,46,46,60,43,30,36,61,47,29,31,42,36,44,0,0,43,46,34,33,35,0,35,0,33,0,47,31,0,0,0,30,0,0,0,0,0,0,0,0,38,30,0,0,0,0,0,48,0,0,30,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,0,42,0,60,0,53,33,0,33,0,0,0,0,30,0,0,35,0,50,0,0,0,0,0,32,28,0,37,0,32,0,0,29,0,48,34,60,44,0,44,62,59,72,83,60,23,26];
-const BJ=[0,1,0,1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,3,3,3,3,4,4,4,7,9,8,14,11,7,7,8,8,7,9,7,7,8,5,9,7,6,8,6,6,7,5,6,7,8,9,8,13,16,15,21,17,18,17,18,16,19,18,14,13,15,14,21,18,20,14,17,20,17,17,18,17,17,17,18,20,19,20,20,19,18,18,18,15,18,15,16,16,16,14,13,14,12,12,15,15,17,22,24,27,29,30,32,29,28,30,30,31,32,30,28,28,32,29,39,30,26,24,27,29,24,23,25,23,22,23,27,26,25,28,28,45,72,87,100,76,44,50];
-const CG=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,22,25,43,88,77,92,71,48,84,81,70,63,76,74,68,100,58,73,52,59,53,28,27,23,18,15,13,17,9,16,11,10,11,9,12,6,9,10,17,13,9,10,10,11,10,9,13,10,12,18,10,16,13,18,17,12,15,15,15,11,15,14,14,18,17,13,16,12,11,12,13,7,9,11,8,7,10,7,5,4,6,6,5,6,5,5,4,4,0,6,7,6,7,8,5,7,5,0,5,7,7,7,7,9,0,6,8,8,6,6,6,6,8,9,9,8,6,6,11,7,7,8,0,8,7,6,0,4,0,0,0,5,4,0,0,0,0,4,0,10,0,0,0,7,5,0,5,0,0,5,0,8,6,15,7,0,5,7,4,0,6,4,5,6,8,5,5,6,7,6,5,5,7,4,0,5,6,0,0,0,0,0,0,0,5,0,0,5,0,0,0,0,0,4,5,0,0,0,4,5,4,0,0,0,0,0,0,0,0,0,5,0,3,3];
-const MW=[4,2,3,3,3,3,2,4,5,3,3,4,3,4,3,3,2,3,4,4,3,4,5,5,8,5,3,2,2,2,3,2,2,3,3,3,2,2,4,2,4,3,3,4,2,3,3,3,3,4,3,4,2,3,4,2,3,3,2,3,2,2,4,3,6,3,4,3,3,2,2,3,4,5,5,4,5,4,3,2,3,2,3,4,3,3,3,4,3,3,2,3,3,4,2,3,4,3,2,3,4,4,2,2,2,4,3,4,3,1,4,3,3,3,3,3,4,4,3,3,3,3,3,4,2,3,3,5,7,4,2,4,4,3,3,3,3,3,4,37,100,93,85,60,42,42,31,26,22,23,21,16,14,14,13,12,9,9,9,9,10,8,7,9,8,9,5,9,7,8,8,10,7,8,9,10,9,10,12,14,18,16,12,11,12,9,12,15,12,12,14,13,13,17,12,10,8,12,10,9,10,9,9,10,10,11,9,7,9,7,6,8,7,5,5,5,6,6,8,7,9,8,9,7,8,9,10,9,9,9,12,12,15,28,13,14,13,11,10,13,18,19,26,21,29,20,21,21,16,15,16,16,13,12,10,13,16,16,14,9,8];
-const TG=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,30,27,25,20,18,29,34,27,23,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,0,1,4,3];
-
+const ATHLEISURE=[23,28,22,23,17,23,18,20,19,19,22,22,23,22,22,23,25,26,21,26,27,26,25,37,28,25,26,24,29,33,30,28,21,26,32,29,24,29,37,28,29,28,28,33,29,27,30,27,27,28,30,24,30,29,26,24,24,26,26,25,24,25,27,26,27,30,27,28,27,24,26,28,28,29,28,27,23,25,24,26,30,31,30,29,24,25,27,27,30,30,30,42,29,33,30,31,28,26,28,26,27,28,28,27,26,28,24,26,24,30,22,24,25,26,26,25,26,26,26,25,26,31,26,28,28,27,30,26,25,28,27,30,38,33,31,31,26,27,29,37,31,33,34,30,32,32,31,29,32,32,29,30,33,34,34,31,31,30,30,31,36,30,31,30,30,31,30,33,29,37,36,32,37,30,30,33,29,29,28,33,33,30,30,33,35,43,44,39,56,29,33,32,31,30,34,35,32,35,34,34,38,41,35,37,35,35,31,36,39,34,34,32,35,37,42,38,43,46,40,46,48,50,49,55,49,55,46,56,63,51,41,41,41,42,45,46,44,55,52,51,43,36,50,41,41,42,41,45,57,59,57,60,56,55,59,77,98,100,83,64,63];
+const SLOW_FASHION=[13,9,8,10,9,9,8,10,7,12,8,9,11,0,8,10,9,10,10,12,9,11,8,8,10,12,10,13,9,12,16,8,8,10,13,12,9,12,10,14,13,15,12,11,12,8,14,15,14,13,16,14,11,12,13,17,12,11,14,9,13,12,12,15,7,13,13,13,13,11,11,14,14,13,12,14,13,12,11,11,14,12,13,13,10,12,8,13,12,10,15,15,12,12,14,16,12,15,12,11,15,13,16,14,13,16,11,10,9,9,13,9,8,9,8,8,11,9,15,8,8,8,14,11,13,13,11,16,17,13,15,12,11,16,12,15,10,7,12,11,16,12,13,17,13,11,8,12,14,14,14,15,14,16,14,16,13,7,14,14,13,16,11,15,14,12,11,12,13,14,11,9,12,10,14,12,11,10,17,14,13,12,13,12,12,16,16,15,13,11,16,15,14,15,14,13,13,16,18,16,15,16,19,16,12,13,13,11,13,15,13,12,12,18,15,20,11,19,17,26,31,18,14,12,13,15,12,13,21,20,21,19,17,21,24,29,30,34,31,35,36,29,33,33,41,40,39,55,71,74,70,49,40,46,48,68,96,100,69,26,30];
+const QUIET_LUXURY=[0,0,5,6,2,3,3,3,3,3,0,0,0,0,4,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,3,0,3,0,0,0,3,3,2,2,3,0,3,0,3,2,3,2,3,2,5,3,3,3,3,3,2,2,3,0,3,6,3,0,3,0,0,4,0,0,0,0,0,3,3,3,3,3,0,3,3,3,4,4,5,2,3,2,5,3,4,0,4,4,5,17,15,21,25,26,20,31,29,25,38,26,44,33,27,22,20,20,23,27,21,24,21,24,23,19,20,17,24,16,21,20,18,18,18,20,19,23,21,24,28,29,25,27,27,28,24,23,23,24,24,20,22,22,23,27,22,18,22,16,17,18,16,20,18,14,19,21,19,19,19,20,18,17,19,18,21,23,20,18,19,18,15,23,17,14,19,24,20,22,23,20,24,26,22,24,20,22,18,20,18,21,20,18,17,19,18,18,21,16,18,22,16,18,19,21,22,16,25,21,20,24,26,29,22,25,21,22,21,19,23,27,27,32,21,23,27,33,35,33,41,41,39,44,46,56,45,44,50,44,50,48,50,55,65,65,65,66,87,94,100,82,36,42];
+const BALLETCORE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,27,0,0,0,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,27,0,0,0,27,32,29,34,38,0,0,0,67,81,90,66,81,54,89,86,85,60,56,45,56,41,52,44,41,29,43,35,28,33,81,39,0,33,47,54,57,47,64,41,54,48,37,34,53,47,47,34,53,61,48,62,68,50,44,55,49,57,52,59,53,47,43,54,36,42,46,46,60,43,30,36,61,47,29,31,42,36,44,0,0,43,46,34,33,35,0,35,0,33,0,47,31,0,0,0,30,0,0,0,0,0,0,0,0,38,30,0,0,0,0,0,48,0,0,30,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,0,42,0,60,0,53,33,0,33,0,0,0,0,30,0,0,35,0,50,0,0,0,0,0,32,28,0,37,0,32,0,0,29,0,48,34,60,44,0,44,62,59,72,83,60,23,26];
+const BARREL_JEANS=[0,1,0,1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,3,3,3,3,4,4,4,7,9,8,14,11,7,7,8,8,7,9,7,7,8,5,9,7,6,8,6,6,7,5,6,7,8,9,8,13,16,15,21,17,18,17,18,16,19,18,14,13,15,14,21,18,20,14,17,20,17,17,18,17,17,17,18,20,19,20,20,19,18,18,18,15,18,15,16,16,16,14,13,14,12,12,15,15,17,22,24,27,29,30,32,29,28,30,30,31,32,30,28,28,32,29,39,30,26,24,27,29,24,23,25,23,22,23,27,26,25,28,28,45,72,87,100,76,44,50];
+const COASTAL_GRANDMOTHER=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,22,25,43,88,77,92,71,48,84,81,70,63,76,74,68,100,58,73,52,59,53,28,27,23,18,15,13,17,9,16,11,10,11,9,12,6,9,10,17,13,9,10,10,11,10,9,13,10,12,18,10,16,13,18,17,12,15,15,15,11,15,14,14,18,17,13,16,12,11,12,13,7,9,11,8,7,10,7,5,4,6,6,5,6,5,5,4,4,0,6,7,6,7,8,5,7,5,0,5,7,7,7,7,9,0,6,8,8,6,6,6,6,8,9,9,8,6,6,11,7,7,8,0,8,7,6,0,4,0,0,0,5,4,0,0,0,0,4,0,10,0,0,0,7,5,0,5,0,0,5,0,8,6,15,7,0,5,7,4,0,6,4,5,6,8,5,5,6,7,6,5,5,7,4,0,5,6,0,0,0,0,0,0,0,5,0,0,5,0,0,0,0,0,4,5,0,0,0,4,5,4,0,0,0,0,0,0,0,0,0,5,0,3,3];
+const MOB_WIFE=[4,2,3,3,3,3,2,4,5,3,3,4,3,4,3,3,2,3,4,4,3,4,5,5,8,5,3,2,2,2,3,2,2,3,3,3,2,2,4,2,4,3,3,4,2,3,3,3,3,4,3,4,2,3,4,2,3,3,2,3,2,2,4,3,6,3,4,3,3,2,2,3,4,5,5,4,5,4,3,2,3,2,3,4,3,3,3,4,3,3,2,3,3,4,2,3,4,3,2,3,4,4,2,2,2,4,3,4,3,1,4,3,3,3,3,3,4,4,3,3,3,3,3,4,2,3,3,5,7,4,2,4,4,3,3,3,3,3,4,37,100,93,85,60,42,42,31,26,22,23,21,16,14,14,13,12,9,9,9,9,10,8,7,9,8,9,5,9,7,8,8,10,7,8,9,10,9,10,12,14,18,16,12,11,12,9,12,15,12,12,14,13,13,17,12,10,8,12,10,9,10,9,9,10,10,11,9,7,9,7,6,8,7,5,5,5,6,6,8,7,9,8,9,7,8,9,10,9,9,9,12,12,15,28,13,14,13,11,10,13,18,19,26,21,29,20,21,21,16,15,16,16,13,12,10,13,16,16,14,9,8];
+const TOMATO_GIRL_SUMMER=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,30,27,25,20,18,29,34,27,23,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,0,1,4,3];
 const WEEKS=["2021-05-09","2021-05-16","2021-05-23","2021-05-30","2021-06-06","2021-06-13","2021-06-20","2021-06-27","2021-07-04","2021-07-11","2021-07-18","2021-07-25","2021-08-01","2021-08-08","2021-08-15","2021-08-22","2021-08-29","2021-09-05","2021-09-12","2021-09-19","2021-09-26","2021-10-03","2021-10-10","2021-10-17","2021-10-24","2021-10-31","2021-11-07","2021-11-14","2021-11-21","2021-11-28","2021-12-05","2021-12-12","2021-12-19","2021-12-26","2022-01-02","2022-01-09","2022-01-16","2022-01-23","2022-01-30","2022-02-06","2022-02-13","2022-02-20","2022-02-27","2022-03-06","2022-03-13","2022-03-20","2022-03-27","2022-04-03","2022-04-10","2022-04-17","2022-04-24","2022-05-01","2022-05-08","2022-05-15","2022-05-22","2022-05-29","2022-06-05","2022-06-12","2022-06-19","2022-06-26","2022-07-03","2022-07-10","2022-07-17","2022-07-24","2022-07-31","2022-08-07","2022-08-14","2022-08-21","2022-08-28","2022-09-04","2022-09-11","2022-09-18","2022-09-25","2022-10-02","2022-10-09","2022-10-16","2022-10-23","2022-10-30","2022-11-06","2022-11-13","2022-11-20","2022-11-27","2022-12-04","2022-12-11","2022-12-18","2022-12-25","2023-01-01","2023-01-08","2023-01-15","2023-01-22","2023-01-29","2023-02-05","2023-02-12","2023-02-19","2023-02-26","2023-03-05","2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21","2023-05-28","2023-06-04","2023-06-11","2023-06-18","2023-06-25","2023-07-02","2023-07-09","2023-07-16","2023-07-23","2023-07-30","2023-08-06","2023-08-13","2023-08-20","2023-08-27","2023-09-03","2023-09-10","2023-09-17","2023-09-24","2023-10-01","2023-10-08","2023-10-15","2023-10-22","2023-10-29","2023-11-05","2023-11-12","2023-11-19","2023-11-26","2023-12-03","2023-12-10","2023-12-17","2023-12-24","2023-12-31","2024-01-07","2024-01-14","2024-01-21","2024-01-28","2024-02-04","2024-02-11","2024-02-18","2024-02-25","2024-03-03","2024-03-10","2024-03-17","2024-03-24","2024-03-31","2024-04-07","2024-04-14","2024-04-21","2024-04-28","2024-05-05","2024-05-12","2024-05-19","2024-05-26","2024-06-02","2024-06-09","2024-06-16","2024-06-23","2024-06-30","2024-07-07","2024-07-14","2024-07-21","2024-07-28","2024-08-04","2024-08-11","2024-08-18","2024-08-25","2024-09-01","2024-09-08","2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24","2024-12-01","2024-12-08","2024-12-15","2024-12-22","2024-12-29","2025-01-05","2025-01-12","2025-01-19","2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-09","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13","2025-04-20","2025-04-27","2025-05-04","2025-05-11","2025-05-18","2025-05-25","2025-06-01","2025-06-08","2025-06-15","2025-06-22","2025-06-29","2025-07-06","2025-07-13","2025-07-20","2025-07-27","2025-08-03","2025-08-10","2025-08-17","2025-08-24","2025-08-31","2025-09-07","2025-09-14","2025-09-21","2025-09-28","2025-10-05","2025-10-12","2025-10-19","2025-10-26","2025-11-02","2025-11-09","2025-11-16","2025-11-23","2025-11-30","2025-12-07","2025-12-14","2025-12-21","2025-12-28","2026-01-04","2026-01-11","2026-01-18","2026-01-25","2026-02-01","2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26","2026-05-03"];
+const YR={2021:0,2022:34,2023:86,2024:139,2025:191,2026:243};
 
-const YR = {2021:0,2022:34,2023:86,2024:139,2025:191,2026:243};
-
-const KWS = [
-  {name:'Athleisure',      t:'sub', hist:33.3, recent:56.3, peak:'Apr 2026 — still climbing',        note:'Born from wellness culture ~2013. No peak in sight after five years of data.',                                            d:ATH},
-  {name:'Slow fashion',    t:'sub', hist:16.3, recent:47.3, peak:'Apr 2026 — accelerating',          note:'Rooted in ethical consumption. Rana Plaza 2013 as cultural anchor. Structural growth mirrors athleisure.',               d:SF},
-  {name:'Quiet luxury',    t:'mid', hist:17.6, recent:53.9, peak:'Apr 2026 — recovering',            note:"Succession + Paltrow trial 2023. Declared dead Jan 2024 — search data disagrees. It's back.",                           d:QL},
-  {name:'Balletcore',      t:'vir', hist:21.5, recent:28.6, peak:'Feb 2022 — Miu Miu AW22',         note:"Runway co-sign extended this viral trend — but couldn't prevent its eventual collapse. Created width, not resilience.",  d:BC},
-  {name:'Barrel jeans',    t:'vir', hist:10.1, recent:37.5, peak:'Apr 2026 — fastest growing',      note:'Alaïa FW23 + TikTok. Now the fastest-growing trend in the dataset. Viral origin, runway-extended.',                     d:BJ},
-  {name:'Coastal grandmother', t:'vir', hist:10.1, recent:1.4,  peak:'Jul 2022 — then nothing',    note:'Coined by @lexnicoleta May 2022. Peaked in 6 weeks. No community, no runway moment, no recovery.',                       d:CG},
-  {name:'Mob wife',        t:'vir', hist:8.8,  recent:15.7, peak:'Jan 2024 — 4 weeks then collapse',note:'Single viral TikTok Jan 2024. Rose from 4 to 100 in one week. Back to single digits in eight weeks.',                    d:MW},
-  {name:'Tomato girl summer', t:'vir', hist:1.8, recent:1.1, peak:'Jun 2023 — one week at 100',    note:'One data point at 100. Seasonal, creator-coined, flatlined before autumn. Lowest lifecycle in the dataset.',              d:TG}
+const KWS=[
+  {name:'Athleisure',t:'sub',hist:33.3,recent:56.3,peak:'Apr 2026 — still climbing',note:'Born from wellness culture ~2013. No peak in sight after five years of data.',d:ATHLEISURE,avg:33.3,cv:0.35,drop:30.0,post:70.0},
+  {name:'Slow fashion',t:'sub',hist:16.3,recent:47.3,peak:'Apr 2026 — accelerating',note:'Rooted in ethical consumption. Rana Plaza 2013 as cultural anchor.',d:SLOW_FASHION,avg:16.3,cv:0.79,drop:58.3,post:41.7},
+  {name:'Quiet luxury',t:'mid',hist:17.6,recent:53.9,peak:'Apr 2026 — recovering',note:"Succession + Paltrow trial 2023. Declared dead Jan 2024 — search data disagrees.",d:QUIET_LUXURY,avg:17.6,cv:0.96,drop:46.7,post:53.3},
+  {name:'Balletcore',t:'vir',hist:21.5,recent:28.6,peak:'Feb 2022 — Miu Miu AW22',note:"Runway co-sign extended this viral trend — but the algorithm abandoned it just as fast.",d:BALLETCORE,avg:21.5,cv:1.19,drop:95.0,post:5.0},
+  {name:'Barrel jeans',t:'vir',hist:10.1,recent:37.5,peak:'Apr 2026 — fastest growing',note:'Alaïa FW23 + TikTok. Now the fastest-growing trend in the dataset.',d:BARREL_JEANS,avg:10.1,cv:1.39,drop:43.3,post:56.7},
+  {name:'Coastal grandmother',t:'vir',hist:10.1,recent:1.4,peak:'Jul 2022 — then nothing',note:'Coined by @lexnicoleta May 2022. Peaked in 6 weeks. No community, no recovery.',d:COASTAL_GRANDMOTHER,avg:10.1,cv:1.8,drop:59.4,post:40.6},
+  {name:'Mob wife',t:'vir',hist:8.8,recent:15.7,peak:'Jan 2024 — 4 weeks then collapse',note:'Single viral TikTok Jan 2024. Rose from 4 to 100 in one week. Back to single digits in eight.',d:MOB_WIFE,avg:8.8,cv:1.33,drop:55.5,post:44.5},
+  {name:'Tomato girl summer',t:'vir',hist:1.8,recent:1.1,peak:'Jun 2023 — one week at 100',note:'One data point at 100. Seasonal, creator-coined. Lowest lifecycle in dataset.',d:TOMATO_GIRL_SUMMER,avg:1.8,cv:4.61,drop:74.0,post:26.0}
 ];
 
-const SC = {
-  sub: {s: INK,                  f: INK},
-  mid: {s: isDark?'#888':'#666', f: 'transparent'},
-  vir: {s: MUT,                  f: 'transparent'}
-};
-const TL = {sub:'subculture', mid:'cultural', vir:'viral'};
-const BF = {sub: INK, mid: isDark?'#888':'#888', vir: isDark?'#444':'#ccc'};
+const SC={sub:{s:INK,f:INK},mid:{s:isDark?'#888':'#666',f:'transparent'},vir:{s:MUT,f:'transparent'}};
+const BF={sub:INK,mid:isDark?'#888':'#888',vir:isDark?'#555':'#ccc'};
+const TL={sub:'subculture',mid:'cultural',vir:'viral'};
 
-// ── HEATMAP ────────────────────────────────────────────────────────
-function shade(v) {
-  if (v === 0) return ECRU;
-  if (isDark) { const g = Math.round(30 + (v/100)*200); return `rgb(${g},${g},${g})`; }
-  const g = Math.round(255 - (v/100)*215);
-  return `rgb(${g},${g},${g})`;
+// ── SHADE ──────────────────────────────────────────────────────────
+function shade(v,highlighted){
+  if(highlighted){
+    if(v===0)return isDark?'#1a0800':'#FFE8DC';
+    const t=v/100;
+    const r=Math.round(212+t*43),g=Math.round(81-t*81),b=Math.round(42-t*42);
+    return `rgb(${r},${g},${b})`;
+  }
+  if(v===0)return isDark?'#1a1a18':'#F5F3EE';
+  if(isDark){const g2=Math.round(30+(v/100)*200);return `rgb(${g2},${g2},${g2})`;}
+  const g2=Math.round(255-(v/100)*215);return `rgb(${g2},${g2},${g2})`;
 }
 
-function buildHeatmap() {
-  const wrap = document.getElementById('hmWrap');
-  const tip  = document.getElementById('tip');
-  const dates = WEEKS.map(w => new Date(w));
+// ── HEATMAP ────────────────────────────────────────────────────────
+function buildHeatmap(){
+  const wrap=document.getElementById('hmWrap');
+  const tip=document.getElementById('tip');
+  const ann=document.getElementById('hmAnn');
+  const dates=WEEKS.map(w=>new Date(w));
+  let activeRow=null;
 
-  const yrRow = document.createElement('div');
-  yrRow.className = 'hm-yr';
-  Object.entries(YR).forEach(([yr, idx], i, arr) => {
-    const next = arr[i+1] ? arr[i+1][1] : 261;
-    const d = document.createElement('div');
-    d.style.cssText = `flex:0 0 ${((next-idx)/261*100).toFixed(2)}%;font-size:9px;color:${MUT};letter-spacing:.08em;font-family:'Inter',sans-serif`;
-    d.textContent = yr;
-    yrRow.appendChild(d);
+  const yrRow=document.createElement('div');yrRow.className='hm-yr';
+  Object.entries(YR).forEach(([yr,idx],i,arr)=>{
+    const next=arr[i+1]?arr[i+1][1]:261;
+    const d=document.createElement('div');
+    d.style.cssText=`flex:0 0 ${((next-idx)/261*100).toFixed(2)}%;font-size:9px;color:${MUT};letter-spacing:.08em`;
+    d.textContent=yr;yrRow.appendChild(d);
   });
   wrap.appendChild(yrRow);
 
-  KWS.forEach((kw, ki) => {
-    const row = document.createElement('div');
-    row.className = 'hm-row';
-    const lbl = document.createElement('div');
-    lbl.className = 'hm-lbl';
-    lbl.innerHTML = `<span class="hm-nm">${kw.name}</span><span class="hm-tp" style="color:${SC[kw.t].s}">${TL[kw.t]}</span>`;
+  const rows=[];
+  KWS.forEach((kw,ki)=>{
+    const row=document.createElement('div');row.className='hm-row';
+    const lbl=document.createElement('div');lbl.className='hm-lbl';
+    lbl.innerHTML=`<span class="hm-nm">${kw.name}</span><span class="hm-tp" style="color:${SC[kw.t].s}">${TL[kw.t]}</span>`;
     row.appendChild(lbl);
-    const cells = document.createElement('div');
-    cells.className = 'hm-cells';
-    kw.d.forEach((v, i) => {
-      const c = document.createElement('div');
-      c.className = 'hm-cell';
-      c.style.background = shade(v);
-      c.addEventListener('mouseenter', e => {
-        tip.style.display = 'block';
-        tip.innerHTML = `${kw.name}<br>${dates[i].toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}<br>interest: ${v}`;
+    const cells=document.createElement('div');cells.className='hm-cells';
+    kw.d.forEach((v,i)=>{
+      const c=document.createElement('div');c.className='hm-cell';c.style.background=shade(v,false);
+      c.addEventListener('mouseenter',e=>{
+        tip.style.display='block';
+        tip.innerHTML=`${kw.name}<br>${dates[i].toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}<br>interest: ${v}`;
       });
-      c.addEventListener('mousemove', e => {
-        tip.style.left = (e.clientX + 14) + 'px';
-        tip.style.top  = (e.clientY - 40) + 'px';
-      });
-      c.addEventListener('mouseleave', () => tip.style.display = 'none');
+      c.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-40)+'px';});
+      c.addEventListener('mouseleave',()=>tip.style.display='none');
       cells.appendChild(c);
     });
     row.appendChild(cells);
+    rows.push({row,cells,kw,ki});
     wrap.appendChild(row);
-    if (ki === 1 || ki === 2) {
-      const sp = document.createElement('div');
-      sp.className = 'hm-sp';
-      wrap.appendChild(sp);
-    }
-  });
-}
-
-// ── TIMELINE ───────────────────────────────────────────────────────
-function buildTimeline() {
-  const TS = {
-    sub: {c: INK,                  d: [],    w: 2},
-    mid: {c: isDark?'#888':'#666', d: [6,3], w: 1.5},
-    vir: {c: MUT,                  d: [2,4], w: 1.5}
-  };
-  let active = null;
-  const datasets = KWS.map(kw => ({
-    label: kw.name, data: kw.d,
-    borderColor: TS[kw.t].c, borderDash: TS[kw.t].d, borderWidth: TS[kw.t].w,
-    pointRadius: 0, tension: 0.3, fill: false
-  }));
-  const chart = new Chart(document.getElementById('tlChart'), {
-    type: 'line',
-    data: {labels: WEEKS, datasets},
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: {display: false},
-        tooltip: {
-          backgroundColor: isDark?'#1a1a1a':'#fff', titleColor: MUT, bodyColor: INK,
-          borderColor: RULE, borderWidth: 1, padding: 8,
-          callbacks: {title: i => i[0].label, label: i => ' ' + i.dataset.label + ': ' + i.raw}
-        }
-      },
-      scales: {
-        x: {ticks:{maxTicksLimit:7,color:MUT,font:{size:10,family:'Inter'}}, grid:{color:isDark?'rgba(255,255,255,0.04)':'#f5f5f5'}, border:{display:false}},
-        y: {min:0,max:110, ticks:{stepSize:25,color:MUT,font:{size:10,family:'Inter'}}, grid:{color:isDark?'rgba(255,255,255,0.04)':'#f5f5f5'}, border:{display:false}}
-      },
-      animation: {duration: 250}
-    }
+    if(ki===1||ki===2){const sp=document.createElement('div');sp.className='hm-sp';wrap.appendChild(sp);}
   });
 
-  const fr = document.getElementById('filterRow');
-  const ap = document.getElementById('annPanel');
-
-  KWS.forEach((kw, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'fbtn';
-    btn.innerHTML = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${SC[kw.t].s};margin-right:4px;vertical-align:middle"></span>${kw.name}`;
-    btn.addEventListener('click', () => {
-      if (active === i) {
-        active = null;
-        chart.data.datasets.forEach((ds, j) => { const s=TS[KWS[j].t]; ds.borderColor=s.c; ds.borderWidth=s.w; ds.borderDash=s.d; });
-        fr.querySelectorAll('.fbtn').forEach(b => b.className = 'fbtn');
-        ap.style.display = 'none';
-      } else {
-        active = i;
-        chart.data.datasets.forEach((ds, j) => {
-          if (j === i) { ds.borderColor = SC[KWS[j].t].s; ds.borderWidth = 2.5; ds.borderDash = []; }
-          else { ds.borderColor = isDark?'#2a2a2a':'#eee'; ds.borderWidth = 1; ds.borderDash = []; }
+  rows.forEach(({row,cells,kw,ki})=>{
+    row.addEventListener('click',()=>{
+      if(activeRow===ki){
+        activeRow=null;
+        rows.forEach(r2=>{
+          r2.row.style.opacity='1';
+          Array.from(r2.cells.children).forEach((c,i)=>c.style.background=shade(r2.kw.d[i],false));
+          r2.row.querySelector('.hm-nm').style.color=INK;
+          r2.row.querySelector('.hm-tp').style.color=SC[r2.kw.t].s;
         });
-        fr.querySelectorAll('.fbtn').forEach((b, j) => b.className = 'fbtn' + (j===i ? ' on-'+KWS[j].t : ''));
-        const ch = +(kw.recent - kw.hist).toFixed(1);
-        document.getElementById('annName').textContent  = kw.name;
-        document.getElementById('annPeak').textContent  = kw.peak;
-        document.getElementById('annNote').textContent  = kw.note;
-        document.getElementById('annStats').innerHTML = `
-          <div><div class="ann-sl">All-time avg</div><div class="ann-sv">${kw.hist}</div></div>
-          <div><div class="ann-sl">Recent 6mo</div><div class="ann-sv">${kw.recent}</div></div>
-          <div><div class="ann-sl">Change</div><div class="ann-sv" style="color:${ch>=0?INK:MUT}">${ch>=0?'+':''}${ch}</div></div>
-          <div><div class="ann-sl">Origin</div><div class="ann-sv" style="font-size:12px;padding-top:4px;text-transform:uppercase;letter-spacing:.06em;color:${SC[kw.t].s}">${TL[kw.t]}</div></div>`;
-        ap.style.display = 'block';
+        ann.style.display='none';
+      } else {
+        activeRow=ki;
+        rows.forEach(r2=>{
+          const isActive=r2.ki===ki;
+          r2.row.style.opacity=isActive?'1':'0.18';
+          Array.from(r2.cells.children).forEach((c,i)=>c.style.background=shade(r2.kw.d[i],isActive));
+          r2.row.querySelector('.hm-nm').style.color=isActive?ACCENT:MUT;
+          r2.row.querySelector('.hm-tp').style.color=isActive?ACCENT:MUT;
+        });
+        document.getElementById('hmAnnName').textContent=kw.name;
+        document.getElementById('hmAnnPeak').textContent=kw.peak;
+        document.getElementById('hmAnnNote').textContent=kw.note;
+        document.getElementById('hmAnnStats').innerHTML=`
+          <div><div class="hm-ann-sl">All-time avg</div><div class="hm-ann-sv">${kw.hist}</div></div>
+          <div><div class="hm-ann-sl">Recent 6mo</div><div class="hm-ann-sv">${kw.recent}</div></div>
+          <div><div class="hm-ann-sl">Change</div><div class="hm-ann-sv" style="color:${kw.recent>=kw.hist?ACCENT:MUT}">${kw.recent>=kw.hist?'+':''}${(kw.recent-kw.hist).toFixed(1)}</div></div>
+          <div><div class="hm-ann-sl">Origin</div><div class="hm-ann-sv" style="font-size:12px;padding-top:4px;text-transform:uppercase;letter-spacing:.06em;color:${ACCENT}">${TL[kw.t]}</div></div>`;
+        ann.style.display='block';
       }
-      chart.update();
     });
-    fr.appendChild(btn);
   });
 }
 
 // ── SLOPE CHART ────────────────────────────────────────────────────
-function buildSlope() {
+function buildSlope(){
   const svg = document.getElementById('slopeSvg');
-  const lX=148, rX=432, tY=26, bY=286, maxV=62;
-  const mk = (tag, attrs) => {
-    const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
-    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k,v));
+  // Wide enough for "Coastal grandmother" — longest label ~150px at 12px font
+  // Left zone: 0–258 for labels · left axis at 258 · slope · right axis at 390 · right labels 390–580
+  const VW=580, VH=480;
+  svg.setAttribute('viewBox',`0 0 ${VW} ${VH}`);
+  const lX=258, rX=390;
+  const tY=40, bY=440;
+  const maxV=62;
+  const mk=(tag,attrs)=>{
+    const e=document.createElementNS('http://www.w3.org/2000/svg',tag);
+    Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
     return e;
   };
-  const yP = v => tY + (1 - Math.min(v,maxV)/maxV) * (bY-tY);
-  const gc = isDark ? 'rgba(255,255,255,0.04)' : '#f5f5f5';
-  const lc = isDark ? '#333' : '#eee';
+  const yP=v=>tY+(1-Math.min(v,maxV)/maxV)*(bY-tY);
 
-  [0,20,40,60].forEach(v => svg.insertBefore(mk('line',{x1:lX,y1:yP(v),x2:rX,y2:yP(v),stroke:gc,'stroke-width':'1'}), svg.firstChild));
-  svg.appendChild(mk('line',{x1:lX,y1:tY-8,x2:lX,y2:bY+8,stroke:lc,'stroke-width':'0.5'}));
-  svg.appendChild(mk('line',{x1:rX,y1:tY-8,x2:rX,y2:bY+8,stroke:lc,'stroke-width':'0.5'}));
-
-  const t1 = mk('text',{x:lX,y:tY-14,'text-anchor':'middle','font-size':'10','fill':MUT,'letter-spacing':'0.1em','font-family':'Inter,sans-serif','font-weight':'500'});
-  t1.textContent = 'ALL-TIME AVG'; svg.appendChild(t1);
-  const t2 = mk('text',{x:rX,y:tY-14,'text-anchor':'middle','font-size':'10','fill':MUT,'letter-spacing':'0.1em','font-family':'Inter,sans-serif','font-weight':'500'});
-  t2.textContent = 'RECENT 6MO'; svg.appendChild(t2);
-
-  [...KWS].sort((a,b) => b.hist-a.hist).forEach(kw => {
-    const g  = kw.recent >= kw.hist;
-    const y1 = yP(kw.hist), y2 = yP(kw.recent);
-    const sc = g ? INK : isDark ? '#444' : '#ddd';
-    const da = kw.t==='vir' ? '4 2' : kw.t==='mid' ? '6 3' : 'none';
-    svg.appendChild(mk('line',{x1:lX,y1,x2:rX,y2,stroke:sc,'stroke-width':g?1.8:1.2,'stroke-dasharray':da==='none'?'':da}));
-    svg.appendChild(mk('circle',{cx:lX,cy:y1,r:'3.5',fill:g?INK:isDark?'#444':'#ddd'}));
-    svg.appendChild(mk('circle',{cx:rX,cy:y2,r:'3.5',fill:g?INK:isDark?'#444':'#ddd'}));
-    const nm = mk('text',{x:lX-10,y:y1+4,'text-anchor':'end','font-size':'11','fill':g?INK:MUT,'font-style':kw.t==='vir'?'italic':'normal','font-family':'Inter,sans-serif','font-weight':g?'500':'300'});
-    nm.textContent = kw.name; svg.appendChild(nm);
-    const hv = mk('text',{x:lX-8,y:y1+14,'text-anchor':'end','font-size':'9','fill':MUT,'font-family':'Inter,sans-serif'});
-    hv.textContent = kw.hist; svg.appendChild(hv);
-    const rv = mk('text',{x:rX+10,y:y2+4,'text-anchor':'start','font-size':'10','fill':g?INK:MUT,'font-family':'Inter,sans-serif','font-weight':g?'500':'300'});
-    rv.textContent = (g ? '↑ ' : '↓ ') + kw.recent; svg.appendChild(rv);
+  // Background grid lines
+  const gc=isDark?'rgba(255,255,255,0.04)':'#f0f0f0';
+  [0,20,40,60].forEach(v=>{
+    const gl=mk('line',{x1:lX,y1:yP(v),x2:rX,y2:yP(v),stroke:gc,'stroke-width':'1'});
+    svg.insertBefore(gl,svg.firstChild);
   });
-}
 
-// ── CV DOT PLOT ────────────────────────────────────────────────────
-function buildDotPlot() {
-  const CV = [
-    {name:'Athleisure',          t:'sub', cv:0.35, avg:33.3, std:11.57},
-    {name:'Slow fashion',        t:'sub', cv:0.79, avg:16.3, std:12.86},
-    {name:'Quiet luxury',        t:'mid', cv:0.96, avg:17.6, std:16.86},
-    {name:'Balletcore',          t:'vir', cv:1.19, avg:21.5, std:25.63},
-    {name:'Mob wife',            t:'vir', cv:1.33, avg:8.8,  std:11.71},
-    {name:'Barrel jeans',        t:'vir', cv:1.39, avg:10.1, std:14.03},
-    {name:'Coastal grandmother', t:'vir', cv:1.79, avg:10.1, std:18.18},
-    {name:'Tomato girl summer',  t:'vir', cv:4.70, avg:1.8,  std:8.31}
-  ];
-  const MAX = 5.0;
-  const wrap = document.getElementById('dotPlot');
+  // Axis lines
+  svg.appendChild(mk('line',{x1:lX,y1:tY-12,x2:lX,y2:bY+12,stroke:isDark?'#333':'#ddd','stroke-width':'0.5'}));
+  svg.appendChild(mk('line',{x1:rX,y1:tY-12,x2:rX,y2:bY+12,stroke:isDark?'#333':'#ddd','stroke-width':'0.5'}));
 
-  CV.forEach(d => {
-    const pct = (d.cv / MAX * 100).toFixed(1);
-    const tc  = SC[d.t];
+  const h1=mk('text',{x:lX,y:tY-20,'text-anchor':'middle','font-size':'10','fill':MUT,'letter-spacing':'0.08em','font-family':'Inter,sans-serif','font-weight':'500'});
+  h1.textContent='ALL-TIME AVG'; svg.appendChild(h1);
+  const h2=mk('text',{x:rX,y:tY-20,'text-anchor':'middle','font-size':'10','fill':MUT,'letter-spacing':'0.08em','font-family':'Inter,sans-serif','font-weight':'500'});
+  h2.textContent='RECENT 6MO'; svg.appendChild(h2);
 
-    const row = document.createElement('div');
-    row.className = 'dot-row';
+  // Sort descending by hist
+  const sorted=[...KWS].sort((a,b)=>b.hist-a.hist);
 
-    const lbl = document.createElement('div');
-    lbl.className = 'dot-lbl';
-    lbl.innerHTML = `<span class="dot-nm">${d.name}</span><span class="dot-tp" style="color:${tc.s}">${TL[d.t]}</span>`;
+  // Compute true dot y positions
+  const dotY=sorted.map(kw=>yP(kw.hist));
 
-    const track = document.createElement('div');
-    track.className = 'dot-track';
+  // Compute label positions: start from dot positions then push apart
+  const MIN_GAP=22; // px minimum between label baselines
+  const labelY=[...dotY];
+  for(let pass=0;pass<80;pass++){
+    let moved=false;
+    for(let i=1;i<labelY.length;i++){
+      if(labelY[i]-labelY[i-1]<MIN_GAP){
+        const mid=(labelY[i]+labelY[i-1])/2;
+        labelY[i-1]=mid-MIN_GAP/2;
+        labelY[i]=mid+MIN_GAP/2;
+        moved=true;
+      }
+    }
+    if(!moved)break;
+  }
+  // Clamp within bounds
+  for(let i=0;i<labelY.length;i++) labelY[i]=Math.max(tY+6,Math.min(bY-6,labelY[i]));
 
-    const axis = document.createElement('div');
-    axis.className = 'dot-axis';
-    track.appendChild(axis);
+  let activeSlope=null;
+  const groups=[];
 
-    [1,2,3,4].forEach(v => {
-      const ref = document.createElement('div');
-      ref.style.cssText = `position:absolute;left:${(v/MAX*100).toFixed(1)}%;top:0;bottom:0;width:0.5px;background:${RULE};pointer-events:none`;
-      track.appendChild(ref);
+  sorted.forEach((kw,i)=>{
+    const g=kw.recent>=kw.hist;
+    const y1=dotY[i];        // true data position — dot lives here
+    const y2=yP(kw.recent);
+    const ly=labelY[i];      // collision-safe label position
+
+    const defaultLineColor=g?INK:isDark?'#3a3a3a':'#ddd';
+    const defaultDotColor=g?INK:isDark?'#444':'#ccc';
+    const defaultTextColor=g?INK:MUT;
+    const italic=kw.t==='vir';
+    const da=kw.t==='vir'?'4 2':kw.t==='mid'?'6 3':'none';
+    const els=[];
+
+    // Slope line — always connects true dot positions
+    const line=mk('line',{x1:lX,y1,x2:rX,y2,stroke:defaultLineColor,'stroke-width':g?1.8:1.2,'stroke-dasharray':da==='none'?'':da});
+    svg.appendChild(line); els.push({el:line,type:'line',g,da});
+
+    // Left dot at true data y
+    const d1=mk('circle',{cx:lX,cy:y1,r:'4',fill:defaultDotColor,stroke:'none'});
+    svg.appendChild(d1); els.push({el:d1,type:'dot',g});
+
+    // Right dot at true data y
+    const d2=mk('circle',{cx:rX,cy:y2,r:'4',fill:defaultDotColor,stroke:'none'});
+    svg.appendChild(d2); els.push({el:d2,type:'dot',g});
+
+    // Tick connector: only draw if label was pushed away from dot
+    if(Math.abs(ly-y1)>4){
+      const conn=mk('line',{
+        x1:lX-8,y1:y1,
+        x2:lX-22,y2:ly,
+        stroke:isDark?'#444':'#ccc',
+        'stroke-width':'0.6',
+        'stroke-dasharray':'2 2'
+      });
+      svg.appendChild(conn); els.push({el:conn,type:'conn'});
+    }
+
+    // Trend name at label position
+    const nameEl=mk('text',{
+      x:lX-26,y:ly+4,
+      'text-anchor':'end',
+      'font-size':'12',
+      'fill':defaultTextColor,
+      'font-style':'normal',
+      'font-family':'Inter,sans-serif',
+      'font-weight':g?'500':'300',
+      'cursor':'pointer'
     });
+    nameEl.textContent=kw.name; svg.appendChild(nameEl); els.push({el:nameEl,type:'name',g});
 
-    const circ = document.createElement('div');
-    circ.className = 'dot-circ';
-    circ.style.cssText = `left:${pct}%;background:${d.t==='sub'?INK:'transparent'};border-color:${tc.s}`;
-    track.appendChild(circ);
+    // Hist value below name — hidden by default, shown only on isolation
+    const histEl=mk('text',{
+      x:lX-26,y:ly+17,
+      'text-anchor':'end',
+      'font-size':'10',
+      'fill':ACCENT,
+      'font-family':'Inter,sans-serif',
+      'font-weight':'400',
+      'opacity':'0'
+    });
+    histEl.textContent=kw.hist; svg.appendChild(histEl); els.push({el:histEl,type:'val'});
 
-    const tip = document.createElement('div');
-    tip.className = 'dtip';
-    tip.textContent = `cv: ${d.cv} · avg: ${d.avg} · std: ${d.std}`;
-    track.appendChild(tip);
+    // Right label at true data y
+    const recentEl=mk('text',{
+      x:rX+14,y:y2+4,
+      'text-anchor':'start',
+      'font-size':'11',
+      'fill':defaultTextColor,
+      'font-family':'Inter,sans-serif',
+      'font-weight':g?'500':'300'
+    });
+    recentEl.textContent=(g?'↑ ':'↓ ')+kw.recent; svg.appendChild(recentEl); els.push({el:recentEl,type:'recent',g});
 
-    const val = document.createElement('div');
-    val.className = 'dot-val';
-    val.textContent = d.cv;
+    groups.push({kw,els,y1,y2,g,da});
 
-    row.appendChild(lbl);
-    row.appendChild(track);
-    row.appendChild(val);
-    wrap.appendChild(row);
+    [line,nameEl,d1,d2].forEach(el=>{
+      el.style.cursor='pointer';
+      el.addEventListener('click',()=>handleSlopeClick(i));
+    });
   });
+
+  function handleSlopeClick(idx){
+    if(activeSlope===idx){
+      // Deselect — hide all val labels
+      activeSlope=null;
+      groups.forEach(({kw,els,g,da})=>{
+        els.forEach(({el,type})=>{
+          if(type==='line'){
+            el.setAttribute('stroke',g?INK:isDark?'#3a3a3a':'#ddd');
+            el.setAttribute('stroke-width',g?1.8:1.2);
+            el.setAttribute('stroke-dasharray',da==='none'?'':da);
+            el.setAttribute('opacity','1');
+          } else if(type==='dot'){
+            el.setAttribute('fill',g?INK:isDark?'#444':'#ccc');
+            el.setAttribute('opacity','1');
+            el.setAttribute('r','4');
+          } else if(type==='name'||type==='recent'){
+            el.setAttribute('fill',g?INK:MUT);
+            el.setAttribute('opacity','1');
+          } else if(type==='conn'){
+            el.setAttribute('opacity','1');
+          } else if(type==='val'){
+            el.setAttribute('opacity','0'); // always hidden at rest
+          }
+        });
+      });
+    } else {
+      activeSlope=idx;
+      const dim=isDark?'0.1':'0.08';
+      groups.forEach(({kw,els,g,da},j)=>{
+        const isActive=j===idx;
+        els.forEach(({el,type})=>{
+          if(isActive){
+            if(type==='line'){
+              el.setAttribute('stroke',ACCENT);
+              el.setAttribute('stroke-width','2.5');
+              el.setAttribute('stroke-dasharray','');
+              el.setAttribute('opacity','1');
+            } else if(type==='dot'){
+              el.setAttribute('fill',ACCENT);
+              el.setAttribute('opacity','1');
+              el.setAttribute('r','5');
+            } else if(type==='name'||type==='recent'){
+              el.setAttribute('fill',ACCENT);
+              el.setAttribute('font-weight','600');
+              el.setAttribute('opacity','1');
+            } else if(type==='conn'){
+              el.setAttribute('opacity','1');
+            } else if(type==='val'){
+              el.setAttribute('opacity','1'); // reveal on isolation only
+            }
+          } else {
+            el.setAttribute('opacity',type==='val'?'0':dim);
+          }
+        });
+      });
+    }
+  }
 }
 
-// ── DROP CHART ─────────────────────────────────────────────────────
-function buildDropPlot() {
-  const DROP = [
-    {name:'Balletcore',          t:'vir', drop:95.0, pm:'Feb 2022'},
-    {name:'Tomato girl summer',  t:'vir', drop:74.0, pm:'Jun 2023'},
-    {name:'Coastal grandmother', t:'vir', drop:59.4, pm:'Jul 2022'},
-    {name:'Slow fashion',        t:'sub', drop:58.3, pm:'Apr 2026'},
-    {name:'Mob wife',            t:'vir', drop:55.5, pm:'Jan 2024'},
-    {name:'Quiet luxury',        t:'mid', drop:46.7, pm:'Apr 2026'},
-    {name:'Barrel jeans',        t:'vir', drop:43.3, pm:'Apr 2026'},
-    {name:'Athleisure',          t:'sub', drop:30.0, pm:'Apr 2026'}
-  ];
-  const wrap = document.getElementById('dropPlot');
+// ── SPARKLINES ────────────────────────────────────────────────────
+function buildSparklines(){
+  const grid=document.getElementById('sparkGrid');
+  let activeCard=null;
+  const drawFns=[];
 
-  DROP.forEach((d, i) => {
-    const tc = SC[d.t];
-    const row = document.createElement('div');
-    row.className = 'drop-row';
-    row.title = `${d.name} · Peak: ${d.pm} · Drop: ${d.drop} pts`;
+  KWS.forEach((kw,ki)=>{
+    const card=document.createElement('div');card.className='spark-card';
+    const nm=document.createElement('div');nm.className='spark-nm';nm.textContent=kw.name;
+    const tp=document.createElement('span');tp.className='spark-tp';tp.style.color=SC[kw.t].s;tp.textContent=TL[kw.t];
+    const cvs=document.createElement('canvas');cvs.className='spark-canvas';
+    cvs.setAttribute('role','img');cvs.setAttribute('aria-label',`${kw.name} sparkline 2021–2026`);
+    const stats=document.createElement('div');stats.className='spark-stats';
+    stats.innerHTML=`<div><span class="spark-stat-lbl">avg</span><span class="spark-stat-val">${kw.avg}</span></div>`;
+    card.appendChild(nm);card.appendChild(tp);card.appendChild(cvs);card.appendChild(stats);
+    grid.appendChild(card);
 
-    const lbl = document.createElement('div');
-    lbl.className = 'drop-lbl';
-    lbl.innerHTML = `<span class="drop-nm">${d.name}</span><span class="drop-tp" style="color:${tc.s}">${TL[d.t]}</span>`;
+    const H=44;
+    cvs.style.width='100%';cvs.style.height=H+'px';
+    const ctx=cvs.getContext('2d');
 
-    const track = document.createElement('div');
-    track.className = 'drop-track';
+    function initCanvas(){
+      const W=cvs.parentElement.offsetWidth||140;
+      cvs.width=W*2;cvs.height=H*2;
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale(2,2);
+      return W;
+    }
 
-    const fill = document.createElement('div');
-    fill.className = 'drop-fill';
-    fill.style.cssText = `width:0%;background:${BF[d.t]}`;
-    track.appendChild(fill);
+    function draw(highlighted){
+      const W=initCanvas();
+      ctx.clearRect(0,0,W,H);
+      const pts=kw.d.map((v,idx)=>({x:idx/(kw.d.length-1)*W,y:H-2-(v/100)*(H-4)}));
+      // fill
+      ctx.beginPath();
+      pts.forEach((p,idx)=>idx===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+      ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();
+      ctx.fillStyle=highlighted?'rgba(212,81,42,0.13)':`rgba(${isDark?'200,200,200':'0,0,0'},0.05)`;
+      ctx.fill();
+      // line
+      ctx.beginPath();
+      pts.forEach((p,idx)=>idx===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+      ctx.strokeStyle=highlighted?ACCENT:INK;
+      ctx.lineWidth=highlighted?1.8:1;
+      ctx.globalAlpha=highlighted?1:0.65;
+      ctx.stroke();
+      ctx.globalAlpha=1;
+    }
 
-    const val = document.createElement('div');
-    val.className = 'drop-val';
-    val.textContent = d.drop;
+    // Store draw function so other cards can trigger it
+    drawFns.push(draw);
 
-    row.appendChild(lbl);
-    row.appendChild(track);
-    row.appendChild(val);
-    wrap.appendChild(row);
+    setTimeout(()=>draw(false),80+ki*10);
 
-    setTimeout(() => { fill.style.width = d.drop + '%'; }, 300 + i * 80);
-  });
-}
-
-// ── NAV HIGHLIGHT ──────────────────────────────────────────────────
-function buildNav() {
-  const ids = ['background','fig1','fig2','fig3','fig4','fig5'];
-  const links = document.querySelectorAll('.nav-links a');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = e.target.id;
-        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    card.addEventListener('click',()=>{
+      if(activeCard===ki){
+        activeCard=null;
+        document.querySelectorAll('.spark-card').forEach((c,j)=>{
+          c.classList.remove('isolated');
+          c.style.opacity='1';
+        });
+        drawFns.forEach((fn,j)=>fn(false));
+      } else {
+        activeCard=ki;
+        document.querySelectorAll('.spark-card').forEach((c,j)=>{
+          c.classList.toggle('isolated',j===ki);
+          c.style.opacity=j===ki?'1':'0.22';
+        });
+        drawFns.forEach((fn,j)=>fn(j===ki));
       }
     });
-  }, {threshold: 0.3});
-  ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+  });
 }
 
-// ── INIT ───────────────────────────────────────────────────────────
+// ── DUMBBELL ──────────────────────────────────────────────────────
+function buildDumbbell(){
+  const sorted=[...KWS].sort((a,b)=>b.drop-a.drop);
+  const wrap=document.getElementById('dbPlot');
+  const MAX_RANGE=105;
+  let activeRow=null;
+  const drawFns=[];
+
+  sorted.forEach((kw,i)=>{
+    const row=document.createElement('div');row.className='db-row';
+    const lbl=document.createElement('div');lbl.className='db-lbl';
+    lbl.innerHTML=`<span class="db-nm">${kw.name}</span><span class="db-tp" style="color:${SC[kw.t].s}">${TL[kw.t]}</span>`;
+
+    const track=document.createElement('div');track.className='db-track';
+    const svgEl=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svgEl.setAttribute('width','100%');svgEl.setAttribute('height','28');svgEl.style.overflow='visible';
+    const mk=(tag,attrs)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;};
+
+    function draw(highlighted){
+      while(svgEl.firstChild)svgEl.removeChild(svgEl.firstChild);
+      const lc=highlighted?ACCENT:BF[kw.t];
+      const W=track.offsetWidth||300;
+      const px=(100/MAX_RANGE)*W;
+      const qx=(kw.post/MAX_RANGE)*W;
+      const cy=14;
+      svgEl.appendChild(mk('line',{x1:px,y1:cy,x2:qx,y2:cy,stroke:highlighted?ACCENT:isDark?'#555':'#ddd','stroke-width':highlighted?2:1.5}));
+      svgEl.appendChild(mk('circle',{cx:px,cy,r:'5',fill:highlighted?'rgba(212,81,42,0.18)':'transparent',stroke:lc,'stroke-width':highlighted?2:1.5}));
+      svgEl.appendChild(mk('circle',{cx:qx,cy,r:'5',fill:lc,stroke:'none'}));
+      const pkLbl=mk('text',{x:px,y:cy-8,'text-anchor':'middle','font-size':'9','fill':highlighted?ACCENT:MUT,'font-family':'Inter,sans-serif'});
+      pkLbl.textContent='100';svgEl.appendChild(pkLbl);
+      if(highlighted){
+        const qLbl=mk('text',{x:qx,y:cy+17,'text-anchor':'middle','font-size':'9','fill':ACCENT,'font-family':'Inter,sans-serif','font-weight':'500'});
+        qLbl.textContent=kw.post;svgEl.appendChild(qLbl);
+      }
+    }
+
+    // Store draw fn indexed by sort order
+    drawFns.push(draw);
+
+    track.appendChild(svgEl);
+    const vals=document.createElement('div');vals.className='db-vals';
+    vals.textContent=`−${kw.drop} pts`;
+
+    row.appendChild(lbl);row.appendChild(track);row.appendChild(vals);
+    wrap.appendChild(row);
+
+    setTimeout(()=>draw(false),50+i*30);
+
+    row.addEventListener('click',()=>{
+      if(activeRow===i){
+        activeRow=null;
+        document.querySelectorAll('.db-row').forEach(r=>{r.classList.remove('isolated');r.style.opacity='1';});
+        drawFns.forEach((fn,j)=>fn(false));
+      } else {
+        activeRow=i;
+        document.querySelectorAll('.db-row').forEach((r,j)=>{
+          r.classList.toggle('isolated',j===i);
+          r.style.opacity=j===i?'1':'0.18';
+        });
+        drawFns.forEach((fn,j)=>fn(j===i));
+      }
+    });
+  });
+}
+
+// ── NAV HIGHLIGHT ─────────────────────────────────────────────────
+function buildNav(){
+  const ids=['background','fig1','fig2','fig3','fig4'];
+  const links=document.querySelectorAll('.nav-links a');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.id;
+        links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));
+      }
+    });
+  },{threshold:0.3});
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+}
+
 buildHeatmap();
-buildTimeline();
 buildSlope();
-buildDotPlot();
-buildDropPlot();
+buildSparklines();
+buildDumbbell();
 buildNav();
 </script>
 </body>
